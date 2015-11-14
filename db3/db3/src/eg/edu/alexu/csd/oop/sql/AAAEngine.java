@@ -35,7 +35,7 @@ public class AAAEngine implements Database{
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
 				throw new SQLException("Null Query");
-		if (curdb==null&&!createdb)throw new SQLException("No Such DataBase is created");
+		if (curdb==null&&!createdb)throw new SQLException("executeStructureQuery fail!!!!");
 		
 		return (boolean) (new StructureQueryParser(curdb)).parse(query);
 	}
@@ -43,7 +43,7 @@ public class AAAEngine implements Database{
 	public Object[][] executeQuery(String query) throws SQLException {
 		if (query==null)
 			throw new SQLException("Null Query");
-		if (curdb==null) throw new SQLException("No Such DataBase is created");
+		if (curdb==null) throw new SQLException("executeQuery !!!!! ");
 		return (String[][]) (new SelectParser(curdb)).parse(query);
 	}
 	@Override
@@ -53,7 +53,7 @@ public class AAAEngine implements Database{
 	public int executeUpdateQuery(String query) throws SQLException {
 		if (query==null)
 			throw new SQLException("Null Query");
-		if (curdb==null) throw new SQLException("No Such DataBase is created");
+		if (curdb==null) throw new SQLException("executeUpdateQuery !!!!!!!!!");
 		try{
 			String s = query.split("\\s+")[0].toLowerCase();
 			s = (s.charAt(0)+"").toUpperCase()+s.substring(1,s.length());
@@ -62,7 +62,7 @@ public class AAAEngine implements Database{
 		}
 		catch(ClassNotFoundException|InstantiationException|IllegalAccessException|StringIndexOutOfBoundsException|
 		IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException ex){
-			throw new SQLException(query);
+			throw new SQLException("executeUpdateQuery Query!!!!!hiiiii"+query);
 		}
 	}
 }
