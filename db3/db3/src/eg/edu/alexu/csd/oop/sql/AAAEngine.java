@@ -62,7 +62,7 @@ public class AAAEngine implements Database{
 		}
 		catch(ClassNotFoundException|InstantiationException|IllegalAccessException|StringIndexOutOfBoundsException|
 		IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException ex){
-			throw new SQLException("update reflection");
+			throw new SQLException(query);
 		}
 	}
 }
