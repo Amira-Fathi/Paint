@@ -27,7 +27,7 @@ public class AAAEngine implements Database{
 		}
 		catch(SQLException ex){
 			createdb=false;
-			throw new RuntimeException("Failed to create database !!!!!!!!!! "+databaseName+" "+dropIfExists);
+			throw new RuntimeException("**createDatabase** "+databaseName+" "+dropIfExists);
 		}
 		return null;
 	}
@@ -35,7 +35,7 @@ public class AAAEngine implements Database{
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
 				throw new SQLException("Null Query");
-		if (curdb==null&&!createdb)throw new SQLException("executeStructureQuery fail!!!!");
+		if (curdb==null&&!createdb)throw new SQLException("**executeStructureQuery** null data base ");
 		
 		return (boolean) (new StructureQueryParser(curdb)).parse(query);
 	}
@@ -43,7 +43,7 @@ public class AAAEngine implements Database{
 	public Object[][] executeQuery(String query)throws SQLException{
 		if (query==null)
 			throw new SQLException("Null Query");
-		if (curdb==null) throw new SQLException("executeQuery !!!!! ");
+		if (curdb==null) throw new SQLException("**executeQuery** null database");
 		return (String[][]) (new SelectParser(curdb)).parse(query);
 	}
 	@Override
@@ -53,7 +53,7 @@ public class AAAEngine implements Database{
 	public int executeUpdateQuery(String query) throws SQLException {
 		if (query==null)
 			throw new SQLException("Null Query");
-		if (curdb==null) throw new SQLException("executeUpdateQuery !!!!!!!!!");
+		if (curdb==null) throw new SQLException("**executeUpdateQuery** null database");
 		try{
 			String s = query.split("\\s+")[0].toLowerCase();
 			s = (s.charAt(0)+"").toUpperCase()+s.substring(1,s.length());

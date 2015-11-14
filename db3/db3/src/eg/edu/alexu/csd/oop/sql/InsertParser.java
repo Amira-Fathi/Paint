@@ -13,7 +13,7 @@ public class InsertParser extends MyParser{
 	}
 	private String[][] check1() throws SQLException{
 		if (values.length!=attr.length) 
-			throw new SQLException("Error :table "+table_name+" has "+attr.length+" columns but "+values.length+" are supplied");
+			throw new SQLException("Error(check1) :table "+table_name+" has "+attr.length+" columns but "+values.length+" are supplied");
 		for (int i=0;i<values.length;i++){
 			String[]p=attr[i].split("\\;");
 			char c1=values[i].charAt(0);
@@ -27,10 +27,10 @@ public class InsertParser extends MyParser{
 				try{
 					Integer.parseInt(values[i]);
 				}catch(NumberFormatException ex){
-					throw new SQLException("Error: Not Valid INT Field");
+					throw new SQLException("Error: Not Valid INT Field(check1)");
 				}
 			}else if (stringerror){
-				throw new SQLException("Error: Not Valid VarChar Field");
+				throw new SQLException("Error: Not Valid VarChar Field(check1)");
 			}
 		}
 		String[][]v=new String[1][values.length];
@@ -39,7 +39,7 @@ public class InsertParser extends MyParser{
 	}
 	private String[][] check2 () throws SQLException{
 		if (!(cols.length==values.length&&cols.length==attr.length))
-			throw new SQLException("Error: number of columns or values isn't correct");
+			throw new SQLException("Error: number of columns or values isn't correct(check2)");
 		String[][]v=new String[1][attr.length];
 		for (int i=0;i<cols.length;i++){
 			boolean stringerror=true;
@@ -58,18 +58,18 @@ public class InsertParser extends MyParser{
 							Integer.parseInt(values[i]);
 						}
 						catch(NumberFormatException ex){
-							throw new SQLException("Error: Not Valid INT Field");
+							throw new SQLException("Error: Not Valid INT Field(check2)");
 						}
 						// varchar
 					}else if(stringerror){
-						throw new SQLException("Error: Not Valid VarChar Field");
+						throw new SQLException("Error: Not Valid VarChar Field(check2)");
 					}
 					found=true;
 					v[0][j]=values[i];
 				}
 			}
 			if (!found){
-				throw new SQLException("Error: No Such Column "+cols[i]);
+				throw new SQLException("Error: No Such Column(check2) "+cols[i]);
 			}
 		}
 		return v;
@@ -107,13 +107,13 @@ public class InsertParser extends MyParser{
 			values = valuesNames.split("\\,");
 		}
 		else {
-			throw new SQLException("SQL Syntax Error: Not Valid SQL");
+			throw new SQLException("SQL Syntax Error(insertParse): Not Valid SQL");
 		}
 		XmlReader xmlr=null;
 		try{
 			xmlr = new XmlReader(curDb+File.separator+table_name+".xml");
 		}catch(RuntimeException ex){
-			throw new SQLException("Error :Not Found Such Table "+table_name);
+			throw new SQLException("Error :Not Found Such Table(insertParse) "+table_name);
 		}
 		attr=xmlr.getAtrr().split("\\,");
 		String[][]v;
