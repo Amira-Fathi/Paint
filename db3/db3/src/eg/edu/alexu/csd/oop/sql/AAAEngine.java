@@ -9,13 +9,16 @@ import eg.edu.alexu.csd.oop.db.Parser;
 
 public class AAAEngine implements Database{
 	private String curdb=null;
+	private boolean createdb=false;
 	@Override
 	// open a data base
 	public String createDatabase(String databaseName, boolean dropIfExists) {
+		createdb=true;
 		try {
 			if (dropIfExists)
 				executeStructureQuery("DROP DATABASE "+databaseName);
 			if (executeStructureQuery("CREATE DATABASE "+databaseName)){
+				createdb=false;
 				curdb=databaseName;
 				File f = new File (databaseName);
 				f.mkdir();
@@ -23,6 +26,7 @@ public class AAAEngine implements Database{
 			}
 		}
 		catch(SQLException ex){
+			createdb=false;
 			throw new RuntimeException("Failed to create database !!!!!!!!!! "+databaseName+" "+dropIfExists);
 		}
 		return null;
@@ -31,7 +35,8 @@ public class AAAEngine implements Database{
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
 				throw new SQLException("Null Query");
-		if (curdb==null) throw new SQLException("No Such DataBase is created");
+		if (curdb==null&&!createdb)throw new SQLException("No Such DataBase is created");
+		
 		return (boolean) (new StructureQueryParser(curdb)).parse(query);
 	}
 	@Override
