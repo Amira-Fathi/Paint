@@ -22,7 +22,9 @@ public class AAAEngine implements Database{
 				return f.getAbsolutePath();
 			}
 		}
-		catch(SQLException ex){}
+		catch(SQLException ex){
+			throw new RuntimeException("Failed to create database !!!!!!!!!!");
+		}
 		return null;
 	}
 	@Override
