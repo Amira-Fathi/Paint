@@ -23,7 +23,7 @@ public class AAAEngine implements Database{
 			}
 		}
 		catch(SQLException ex){
-			throw new RuntimeException("Failed to create database !!!!!!!!!!");
+			throw new RuntimeException("Failed to create database !!!!!!!!!! "+databaseName);
 		}
 		return null;
 	}
