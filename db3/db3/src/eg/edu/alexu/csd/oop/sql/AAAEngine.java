@@ -40,7 +40,7 @@ public class AAAEngine implements Database{
 		return (boolean) (new StructureQueryParser(curdb)).parse(query);
 	}
 	@Override
-	public Object[][] executeQuery(String query) throws SQLException {
+	public Object[][] executeQuery(String query)throws SQLException{
 		if (query==null)
 			throw new SQLException("Null Query");
 		if (curdb==null) throw new SQLException("executeQuery !!!!! ");
@@ -57,12 +57,32 @@ public class AAAEngine implements Database{
 		try{
 			String s = query.split("\\s+")[0].toLowerCase();
 			s = (s.charAt(0)+"").toUpperCase()+s.substring(1,s.length());
-				return (int)((Parser)(Class.forName("eg.edu.alexu.csd.oop.sql."+s+"Parser")).
+			String classname = "eg.edu.alexu.csd.oop.sql."+s+"Parser";
+				return (int)((Parser)(Class.forName(classname)).
 						getConstructor(String.class).newInstance(curdb)).parse(query);
 		}
-		catch(ClassNotFoundException|InstantiationException|IllegalAccessException|StringIndexOutOfBoundsException|
-		IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException ex){
-			throw new SQLException("executeUpdateQuery Query!!!!!hiiiii"+query);
+		catch(ClassNotFoundException ex){
+			throw new SQLException("ClassNotFoundException");
+		}catch(InstantiationException ex){
+			throw new SQLException("InstantiationException");
+		}
+		catch(IllegalAccessException e){
+			throw new SQLException("IllegalAccessException");
+		}
+		catch( StringIndexOutOfBoundsException e){
+			throw new SQLException("StringIndexOutOfBoundsException");
+		}
+		catch(IllegalArgumentException e){
+			throw new SQLException("IllegalArgumentException");
+		}
+		catch(InvocationTargetException e){
+			throw new SQLException("InvocationTargetException");
+		}
+		catch(NoSuchMethodException e){
+			throw new SQLException("NoSuchMethodException");
+		}
+		catch(SecurityException e){
+			throw new SQLException("SecurityException");
 		}
 	}
 }
