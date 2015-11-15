@@ -9,8 +9,7 @@ public class UpdateParser extends MyParser{
 	}
 	@Override
 	public Object parse(String query) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException ("*********Update Not Yet*******");
 	}
 
 }

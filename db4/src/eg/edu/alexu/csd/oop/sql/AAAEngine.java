@@ -27,18 +27,23 @@ public class AAAEngine implements Database{
 		}
 		catch(SQLException ex){
 			createdb=false;
-			throw new RuntimeException("**createDatabase** "+databaseName+" "+dropIfExists);
 		}
 		return null;
 	}
 	@Override
+	
+	
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
-				throw new SQLException("Null Query");
-		if (curdb==null&&!createdb)throw new SQLException("**executeStructureQuery** null data base ");
+				throw new SQLException("Null Query "+query);
+		if (curdb==null&&!createdb)throw new SQLException("**executeStructureQuery** null database");
 		
 		return (boolean) (new StructureQueryParser(curdb)).parse(query);
 	}
+	
+	
+	
+	
 	@Override
 	public Object[][] executeQuery(String query)throws SQLException{
 		if (query==null)
