@@ -13,8 +13,11 @@ public class StructureQueryParser extends MyParser{
 	// CREATE TABLE table_name()
 	// not check on columns names yet
 	private String curDb;
-	public StructureQueryParser (String db){
+	public StructureQueryParser(String db){
 		curDb=db;
+	}
+	public String getCurDb (){
+		return curDb;
 	}
 	private void deleteFile(File element) {
 	    if (element.isDirectory()){
@@ -48,6 +51,7 @@ public class StructureQueryParser extends MyParser{
 		
 		// create table
 		else if (regexChecker(reg3,query,query.length())){
+			if (curDb==null)return false;
 			String tableName = query.replaceAll(reg3,"$2");
 			String col = query.replaceAll(reg3,"$4").replaceAll("^(\\()|(\\))$","").replaceAll("^(\\s*)|(\\s*)$","").
 					replaceAll("\\s*,\\s*",",").replaceAll("\\s+[Ii][Nn][Tt]",";int").replaceAll("\\s+[Vv][Aa][Rr][Cc][Hh][Aa][Rr]",";varhar");
@@ -56,6 +60,7 @@ public class StructureQueryParser extends MyParser{
 		// create table
 		
 		else if (regexChecker(reg4,query,query.length())){
+			if (curDb==null)return false;
 			return dropTable(curDb+File.separator+query.replaceAll(reg4,"$2")+".xml");
 		}
 		else { 
@@ -67,13 +72,12 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
-		if (f.exists() && f.isDirectory()){
+		if(f.exists() && f.isDirectory()){
 			 return false;
 		}
-		else {
-			//if folder name is valid
-			// mkdir --> create single folder
-			if (f.mkdir()) {
+		else{
+			if(f.mkdir()){
+				curDb=db;
 				return true;
 			}
 			return false;
@@ -83,12 +87,13 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
+			if (curDb!=null)
+				if (curDb.equals(db))curDb=null;
 			return true;
 		}
 		return false; // not found folder
 	}
 	private boolean dropTable(String table_name){
-		if (curDb==null) return false;
 		File f = new File(table_name);
 		if (f.exists()&&!f.isDirectory()){
 			deleteFile(f);
@@ -97,7 +102,6 @@ public class StructureQueryParser extends MyParser{
 		return false;
 	}
 	private boolean createTable(String table_name,String path,String attr){
-		if (curDb==null) return false;
 		File f = new File(path);
 		if (f.exists()&&!f.isDirectory()){
 			return false;

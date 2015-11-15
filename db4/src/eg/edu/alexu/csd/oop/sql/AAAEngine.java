@@ -1,6 +1,5 @@
 package eg.edu.alexu.csd.oop.sql;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
@@ -13,23 +12,20 @@ public class AAAEngine implements Database{
 	// open a data base
 	public String createDatabase(String databaseName, boolean dropIfExists) {
 		try {
-			if (dropIfExists) executeStructureQuery("DROP DATABASE "+databaseName);
+			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
 			executeStructureQuery("CREATE DATABASE "+databaseName);
-			// test if the database is created or not
-			File f = new File(databaseName);
-			if (f.exists()&&f.isDirectory()){
-				curdb=databaseName;
-				return databaseName;
-			}
 		}
 		catch(SQLException ex){}
-		return null;
+		return curdb;
 	}
 	@Override	
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
-				throw new SQLException("Null Query "+query);		
-		return (boolean)(new StructureQueryParser(curdb)).parse(query);
+				throw new SQLException("Null Query "+query);
+		StructureQueryParser p = new StructureQueryParser(curdb);
+		boolean success = (boolean)p.parse(query);
+		curdb=p.getCurDb();
+		return success;
 	}
 
 	@Override

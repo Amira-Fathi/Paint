@@ -17,7 +17,7 @@ public class Test {
 		
 		/*	e.executeStructureQuery("CREATE TABLE Persons"
 				+"(PersonID int,LastName varchar,FirstName varchar,Address varchar,City varchar)");*/
-		
+		e.executeStructureQuery("");
 		
 	}
 
