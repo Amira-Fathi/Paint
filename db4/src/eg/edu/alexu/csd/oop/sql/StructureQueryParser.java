@@ -16,9 +16,10 @@ public class StructureQueryParser extends MyParser{
 	public StructureQueryParser(String db){
 		curDb=db;
 	}
-	public String getCurDb (){
+	public String getDb(){
 		return curDb;
 	}
+	
 	private void deleteFile(File element) {
 	    if (element.isDirectory()){
 	        for (File sub : element.listFiles()) {
@@ -77,7 +78,6 @@ public class StructureQueryParser extends MyParser{
 		}
 		else{
 			if(f.mkdir()){
-				curDb=db;
 				return true;
 			}
 			return false;
@@ -87,8 +87,9 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
-			if (curDb!=null)
-				if (curDb.equals(db))curDb=null;
+			if (curDb!=null){
+				if(curDb.equals(db))curDb=null;
+			}
 			return true;
 		}
 		return false; // not found folder

@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.oop.sql;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
@@ -7,24 +9,37 @@ import eg.edu.alexu.csd.oop.db.Database;
 import eg.edu.alexu.csd.oop.db.Parser;
 
 public class AAAEngine implements Database{
-	private String curdb=null;
+	private String curdb=null;	
+	boolean validpath (String path){
+		File f = new File(path);
+		try {
+			f.createNewFile();
+			f.delete();
+		} catch(IOException e){
+			return false;// not valid
+		}
+		return true;
+	}
+	
 	@Override
 	// open a data base
-	public String createDatabase(String databaseName, boolean dropIfExists) {
-		try {
+	// current data base must be set in the createDatabase
+	public String createDatabase(String databaseName,boolean dropIfExists) {
+		if (!validpath(databaseName)) return null;
+		try{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
 			executeStructureQuery("CREATE DATABASE "+databaseName);
-		}
-		catch(SQLException ex){}
+			curdb=databaseName;
+		}catch(SQLException ex){}
 		return curdb;
 	}
 	@Override	
-	public boolean executeStructureQuery(String query) throws SQLException {
+	public boolean executeStructureQuery(String query) throws SQLException{
 		if (query==null)
 				throw new SQLException("Null Query "+query);
 		StructureQueryParser p = new StructureQueryParser(curdb);
 		boolean success = (boolean)p.parse(query);
-		curdb=p.getCurDb();
+		curdb=p.getDb();
 		return success;
 	}
 
