@@ -100,7 +100,6 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
-			log(db+" {from drop}\n",false);
 			if (curDb!=null){
 				if(curDb.equals(db))curDb=null;
 			}
@@ -117,8 +116,7 @@ public class StructureQueryParser extends MyParser{
 		return false;
 	}
 	private boolean createTable(String table_name,String path,String attr){
-		log("T: "+table_name+" db: "+curDb+"\n",false);
-		//log("",true);
+		log("",true);
 		File f = new File(path);
 		if (f.exists()&&!f.isDirectory()){
 			return false;
@@ -126,11 +124,14 @@ public class StructureQueryParser extends MyParser{
 		else {
 			try {
 				f.createNewFile();
-			} catch (IOException e) {
+			} catch (IOException e){
 				return false;
 			}
 			// if success in creation the file 
 			if (f.exists()){
+				if (table_name.equals("table_name11")){
+					//log("table_name11 :" + attr,true);
+				}
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}

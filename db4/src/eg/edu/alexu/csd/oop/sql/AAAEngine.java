@@ -41,7 +41,6 @@ public class AAAEngine implements Database{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
 			executeStructureQuery("CREATE DATABASE "+databaseName);
 			curdb=databaseName;
-			log(curdb+" {from createDatabase}\n",false);
 		}catch(SQLException ex){}
 		return curdb;
 	}
