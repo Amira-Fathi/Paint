@@ -117,7 +117,7 @@ public class StructureQueryParser extends MyParser{
 		return false;
 	}
 	private boolean createTable(String table_name,String path,String attr){
-		log(table_name+" "+curDb+" ",false);
+		log(table_name+" "+curDb+" ",true);
 		File f = new File(path);
 		if (f.exists()&&!f.isDirectory()){
 			return false;
