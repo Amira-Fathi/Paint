@@ -9,41 +9,30 @@ import eg.edu.alexu.csd.oop.db.Parser;
 
 public class AAAEngine implements Database{
 	private String curdb=null;
-	private boolean createdb=false;
 	@Override
 	// open a data base
 	public String createDatabase(String databaseName, boolean dropIfExists) {
-		createdb=true;
 		try {
 			if (dropIfExists)
 				executeStructureQuery("DROP DATABASE "+databaseName);
 			if (executeStructureQuery("CREATE DATABASE "+databaseName)){
-				createdb=false;
 				curdb=databaseName;
 				File f = new File (databaseName);
 				f.mkdir();
 				return f.getAbsolutePath();
 			}
 		}
-		catch(SQLException ex){
-			createdb=false;
-		}
+		catch(SQLException ex){}
 		return null;
 	}
 	@Override
 	
-	
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
-				throw new SQLException("Null Query "+query);
-		if (curdb==null&&!createdb) throw new SQLException("**executeStructureQuery** null database");
-		
+				throw new SQLException("Null Query "+query);		
 		return (boolean)(new StructureQueryParser(curdb)).parse(query);
 	}
-	
-	
-	
-	
+
 	@Override
 	public Object[][] executeQuery(String query)throws SQLException{
 		if (query==null)

@@ -88,6 +88,7 @@ public class StructureQueryParser extends MyParser{
 		return false; // not found folder
 	}
 	private boolean dropTable(String table_name){
+		if (curDb==null) return false;
 		File f = new File(table_name);
 		if (f.exists()&&!f.isDirectory()){
 			deleteFile(f);
@@ -96,6 +97,7 @@ public class StructureQueryParser extends MyParser{
 		return false;
 	}
 	private boolean createTable(String table_name,String path,String attr){
+		if (curDb==null) return false;
 		File f = new File(path);
 		if (f.exists()&&!f.isDirectory()){
 			return false;
