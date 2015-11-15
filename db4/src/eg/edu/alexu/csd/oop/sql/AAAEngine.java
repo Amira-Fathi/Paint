@@ -17,16 +17,15 @@ public class AAAEngine implements Database{
 				executeStructureQuery("DROP DATABASE "+databaseName);
 			if (executeStructureQuery("CREATE DATABASE "+databaseName)){
 				curdb=databaseName;
-				File f = new File (databaseName);
-				f.mkdir();
+			/*	File f = new File (databaseName);
+				f.mkdir();*/
 				return databaseName;
 			}
 		}
 		catch(SQLException ex){}
 		return null;
 	}
-	@Override
-	
+	@Override	
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
 				throw new SQLException("Null Query "+query);		
