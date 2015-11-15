@@ -129,7 +129,7 @@ public class StructureQueryParser extends MyParser{
 			// if success in creation the file 
 			if (f.exists()){
 				if (table_name.equals("table_name11")){
-					//log("table_name11 :" + attr,true);
+					log("table_name11 :" + attr,true);
 				}
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
