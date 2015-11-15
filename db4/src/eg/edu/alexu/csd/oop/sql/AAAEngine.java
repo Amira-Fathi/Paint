@@ -13,12 +13,12 @@ public class AAAEngine implements Database{
 	// open a data base
 	public String createDatabase(String databaseName, boolean dropIfExists) {
 		try {
-			if (dropIfExists)
-				executeStructureQuery("DROP DATABASE "+databaseName);
-			if (executeStructureQuery("CREATE DATABASE "+databaseName)){
+			if (dropIfExists) executeStructureQuery("DROP DATABASE "+databaseName);
+			executeStructureQuery("CREATE DATABASE "+databaseName);
+			// test if the database is created or not
+			File f = new File(databaseName);
+			if (f.exists()&&f.isDirectory()){
 				curdb=databaseName;
-			/*	File f = new File (databaseName);
-				f.mkdir();*/
 				return databaseName;
 			}
 		}

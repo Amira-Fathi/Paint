@@ -47,7 +47,6 @@ public class DeleteParser extends MyParser{
 		}
 		else if(this.regexChecker(check3, this.query, this.query.length()))
 		{
-		
 			String []content = this.query.substring(0, noIndex).split(" +");
 			String tableName = content[2];
 			String condition = content[4];
@@ -80,10 +79,8 @@ public class DeleteParser extends MyParser{
 						index++;
 					}
 				}
-				
 				new XmlWriter( file, updatedTable ,this.attribute, tableName);			
-			 }
-		
+			 }		
 		else
 			throw  new SQLException("ERROR DELETE {"+query+"} hiiiiiii rewaaaaaaan");
 		
