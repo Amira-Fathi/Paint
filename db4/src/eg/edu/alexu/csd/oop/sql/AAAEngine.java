@@ -19,7 +19,7 @@ public class AAAEngine implements Database{
 				curdb=databaseName;
 				File f = new File (databaseName);
 				f.mkdir();
-				return f.getAbsolutePath();
+				return databaseName;
 			}
 		}
 		catch(SQLException ex){}
