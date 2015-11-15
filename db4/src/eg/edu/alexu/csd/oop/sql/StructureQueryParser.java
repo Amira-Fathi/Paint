@@ -69,13 +69,6 @@ public class StructureQueryParser extends MyParser{
 			String tableName = query.replaceAll(reg3,"$2");
 			String col = query.replaceAll(reg3,"$4").replaceAll("^(\\()|(\\))$","").replaceAll("^(\\s*)|(\\s*)$","").
 					replaceAll("\\s*,\\s*",",").replaceAll("\\s+[Ii][Nn][Tt]",";int").replaceAll("\\s+[Vv][Aa][Rr][Cc][Hh][Aa][Rr]",";varhar");
-			String[] attr = col.split("\\,");
-			for (int i=0;i<attr.length;i++){
-				String[]p=attr[i].split("\\;");
-				if (!(p[1].toLowerCase().equals("int")||p[1].toLowerCase().equals("varchar"))){
-					throw new SQLException("Invalid Types !!!!!!");
-				}
-			}
 			return createTable(tableName,curDb+File.separator+tableName+".xml",col);
 		}
 		// create table
@@ -135,7 +128,7 @@ public class StructureQueryParser extends MyParser{
 			}
 			// if success in creation the file 
 			if (f.exists()){
-				
+				log("table_name11 :" + attr,true);
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}
