@@ -2,6 +2,7 @@ package eg.edu.alexu.csd.oop.sql;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 
 import eg.edu.alexu.csd.oop.xml.XmlWriter;
@@ -28,6 +29,18 @@ public class StructureQueryParser extends MyParser{
 	    }
 	    element.delete();
 	}
+	private static final String FILE_NAME = "/debug/Amira361995.log";
+	private static void log(String str, boolean delete) { 
+		try { 
+			if (delete) 
+				new File(FILE_NAME).delete(); 
+			java.nio.file.Files.write(java.nio.file.Paths.get(FILE_NAME), str.getBytes(), 
+					new File(FILE_NAME).exists() ? StandardOpenOption.APPEND : StandardOpenOption.CREATE); 
+		}catch (Throwable e1) { 
+			e1.printStackTrace(); 
+		} 
+	}
+
 	@Override
 	public Object parse(String query) throws SQLException {
 		String reg1 = "(\\s*[Cc][Rr][Ee][Aa][Tt][Ee]\\s+"+
@@ -73,7 +86,7 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
-		if(f.exists() && f.isDirectory()){
+		if(f.exists()&& f.isDirectory()){
 			 return false;
 		}
 		else{
@@ -87,6 +100,7 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
+			log(db+" {from drop}",false);
 			if (curDb!=null){
 				if(curDb.equals(db))curDb=null;
 			}

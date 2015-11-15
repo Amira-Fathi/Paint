@@ -3,6 +3,7 @@ package eg.edu.alexu.csd.oop.sql;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 
 import eg.edu.alexu.csd.oop.db.Database;
@@ -20,7 +21,17 @@ public class AAAEngine implements Database{
 		}
 		return true;
 	}
-	
+	private static final String FILE_NAME = "/debug/Amira361995.log";
+	private static void log(String str, boolean delete) { 
+		try { 
+			if (delete) 
+				new File(FILE_NAME).delete(); 
+			java.nio.file.Files.write(java.nio.file.Paths.get(FILE_NAME), str.getBytes(), 
+					new File(FILE_NAME).exists() ? StandardOpenOption.APPEND : StandardOpenOption.CREATE); 
+		}catch (Throwable e1) { 
+			e1.printStackTrace(); 
+		} 
+	}
 	@Override
 	// open a data base
 	// current data base must be set in the createDatabase
@@ -30,6 +41,7 @@ public class AAAEngine implements Database{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
 			executeStructureQuery("CREATE DATABASE "+databaseName);
 			curdb=databaseName;
+			log(curdb+" {from createDatabase}",false);
 		}catch(SQLException ex){}
 		return curdb;
 	}
