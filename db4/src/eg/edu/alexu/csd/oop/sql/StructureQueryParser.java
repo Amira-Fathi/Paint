@@ -100,7 +100,7 @@ public class StructureQueryParser extends MyParser{
 		File f = new File(db);
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
-			log(db+" {from drop}",true);
+			log(db+" {from drop}\n",false);
 			if (curDb!=null){
 				if(curDb.equals(db))curDb=null;
 			}
@@ -117,7 +117,7 @@ public class StructureQueryParser extends MyParser{
 		return false;
 	}
 	private boolean createTable(String table_name,String path,String attr){
-		log("",true);
+		log("T: "+table_name+" db: "+curDb,false);
 		File f = new File(path);
 		if (f.exists()&&!f.isDirectory()){
 			return false;
