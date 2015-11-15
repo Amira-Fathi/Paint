@@ -36,9 +36,9 @@ public class AAAEngine implements Database{
 	public boolean executeStructureQuery(String query) throws SQLException {
 		if (query==null)
 				throw new SQLException("Null Query "+query);
-		if (curdb==null&&!createdb)throw new SQLException("**executeStructureQuery** null database");
+		if (curdb==null&&!createdb) throw new SQLException("**executeStructureQuery** null database");
 		
-		return (boolean) (new StructureQueryParser(curdb)).parse(query);
+		return (boolean)(new StructureQueryParser(curdb)).parse(query);
 	}
 	
 	

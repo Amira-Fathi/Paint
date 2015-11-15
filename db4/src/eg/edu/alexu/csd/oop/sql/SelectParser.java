@@ -10,22 +10,15 @@ public class SelectParser extends MyParser{
 	private String[][] selectedItem, tableArray = null ,updatedTable  = null ;
 	private int [] selectedColIndex ,selected ;
 	private  XmlReader read;
-	/*public static void main(String[] args) {
-		new SelectParser("rewan");
-	}*/
-
 	public SelectParser(String dataBase) {
 		this.dataBaseName = dataBase;	
 	}
-
 	@Override
 	public Object parse(String query) throws SQLException {
 		this.query = query;
 		String check1 = "SELECT\\s*[*]\\s*FROM\\s*\\w*\\s*";
 		String check2 = "SELECT\\s*\\w*(\\s*\\,\\s*\\w*)*?\\s*FROM\\s*\\w*\\s*";
 		String check3 = "SELECT\\s*\\w*(\\s*\\,\\s*\\w*)*?\\s*FROM\\s*\\w*\\s*WHERE\\s*\\w*\\s*[<,>,=]\\s*.*\\s*";
-		
-		
 		if(this.regexChecker(check1 , this.query,this.query.length()) )
 		{
 		   String arr[] = query.split(" ");
@@ -41,29 +34,21 @@ public class SelectParser extends MyParser{
 		  this.tableArray = this.read.getEntries();
 		  new XmlWriter( file, this.tableArray ,this.attribute,tableName);
 		}
-		///////////////////////////////////////////////////////////////////////////
-		if(this.regexChecker(check2 , this.query,this.query.length()))
+		else if(this.regexChecker(check2 , this.query,this.query.length()))
 		{ 
 			this.regexChecker("from", this.query, this.query.length());
 			String tableName = this.query.substring(this.end+1,this.query.length()).replaceAll("[\\s*]", "");
-			intialize(tableName);
-			  //System.out.println(this.selectedColIndex.length + "dkdkdkdkkdkdkdkdkdkdk" +this.tableArray.length );
-			  
+			intialize(tableName);			  
 			 selectedItem = new String[this.tableArray.length][this.selectedColIndex.length];
 			for(int i = 0 ; i < this.tableArray.length ; i++)
 			{
 				for(int j = 0 ; j < this.selectedColIndex.length ; j++)
 				{
-					selectedItem[i][j] = this.tableArray[i][selectedColIndex[j]];
-					//System.out.print(selectedItem[i][j] + "  ");
-					
+					selectedItem[i][j] = this.tableArray[i][selectedColIndex[j]];					
 				}
-				//System.out.println();
-			}
-		   	
+			}	   	
 		}
-		
-		if(this.regexChecker(check3 , this.query,this.query.length()) )
+		else if(this.regexChecker(check3 , this.query,this.query.length()))
 		{
 			this.regexChecker("from", this.query, this.query.length());
 			int st = this.end+1;
@@ -89,20 +74,16 @@ public class SelectParser extends MyParser{
 					for(int j = 0 ; j < this.selectedColIndex.length ; j++)
 					{
 						updatedTable[index][j] = this.tableArray[i][selectedColIndex[j]];
-						//System.out.print(updatedTable[index][j] + " ");
 					}
-					//System.out.println();
 					index++;
 				}
 			}	
 		}
 		else{
-			throw  new SQLException();
+			throw  new SQLException("ERORR SELECT : {"+query + "} hiiiiii rewaaaaaaaaan");
 		}
 		return this.updatedTable;
 	}
-	
-	
 	private void intialize(String tableName) throws SQLException
 	{
 		String fileName = this.dataBaseName+File.separatorChar+tableName+".xml";
@@ -110,13 +91,10 @@ public class SelectParser extends MyParser{
 	    try {
 			this.read = new XmlReader(fileName);
 		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	   this.tableArray = this.read.getEntries();
 	  this.attribute = this.read.getAtrr();
 	  this.selectedColIndex = this.selectBeforeOperator(this.attribute, this.query, "SELECT", "from", this.tableArray);
 	}
-	
-	
 }

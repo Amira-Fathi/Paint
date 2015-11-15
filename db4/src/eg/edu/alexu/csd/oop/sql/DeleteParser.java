@@ -11,17 +11,6 @@ public class DeleteParser extends MyParser{
 	private String query,dataBaseName, fileName ,attribute;
 	private XmlReader read;
 	private int[] deleteRow;
-	/*public static void main(String[] args) {
-		String [][] r = { {"1","rewan" , "bitash","www","egypt"} ,{ "2","kfkf", "bitash","www","egypt"}};
-		
-		String fileName = "rewan"+File.separatorChar+"products"+".xml";
-		File file = new File(fileName);
-		String attribute = "PersonID;int,LastName;varchar,FirstName;varchar,Address;varchar,City;varchar";
-		 new XmlWriter( file, r ,attribute,"products");
-
-		new  DeleteParser("delete  from   products where FirstName = 'l' ","rewan");
-	
-	}*/
 	public DeleteParser(String dataName) {
 		this.dataBaseName = dataName;
 	}
@@ -33,7 +22,6 @@ public class DeleteParser extends MyParser{
 		String check3 = "DELETE\\s*FROM\\s*\\w*\\s*WHERE\\s*\\w*\\s*[<,>,=]\\s*.*\\s*";
 		 this.regexChecker("[<,>,=]", this.query, this.query.length());
 		 int noIndex = this.start;
-	    /////////////////////////////////////////////////////////////////////////
 		if(this.regexChecker(check1, this.query, this.query.length()) || 
 				this.regexChecker(check2, this.query, this.query.length()))
 		{
@@ -49,7 +37,6 @@ public class DeleteParser extends MyParser{
 			try {
 				 this.read =new XmlReader(this.fileName);
 			} catch (RuntimeException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			File file = new File(this.fileName);
@@ -58,8 +45,7 @@ public class DeleteParser extends MyParser{
 			this.attribute =  this.read.getAtrr();
 			 new XmlWriter( file, tablestr ,this.attribute,tableName);
 		}
-		//////////////////////////////////////////////////////////////////////////
-		if(this.regexChecker(check3, this.query, this.query.length()))
+		else if(this.regexChecker(check3, this.query, this.query.length()))
 		{
 		
 			String []content = this.query.substring(0, noIndex).split(" +");
@@ -70,7 +56,6 @@ public class DeleteParser extends MyParser{
 			try {
 				this.read =new XmlReader(this.fileName);
 			} catch (RuntimeException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.fileName = dataBaseName+File.separatorChar+tableName+".xml";
@@ -100,7 +85,7 @@ public class DeleteParser extends MyParser{
 			 }
 		
 		else
-			throw  new SQLException();
+			throw  new SQLException("ERROR DELETE {"+query+"} hiiiiiii rewaaaaaaan");
 		
 		return this.returnedVal;
 	}
