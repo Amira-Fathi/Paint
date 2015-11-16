@@ -162,16 +162,19 @@ public class UpdateParser extends MyParser{
 			}if (!found)throw new SQLException("Error: No Such Column "+column);
 		}
 		int change=0;
+		boolean update;
 		entries = xmlr.getEntries();
 		for (int i=0;i<entries.length;i++){
-			if (c.compare(entries[i][index],value)){
-				for (int j=0;j<attr.length;j++){
-					if (columns[j]!=null){
-						entries[i][j]=vals[j];
-					}
+			update=false;
+			if(index==-1)update=true;
+			else if (c.compare(entries[i][index],value))update=true; 
+			for (int j=0;j<attr.length&&update;j++){
+				if (columns[j]!=null){
+					entries[i][j]=vals[j];
 				}
-				change++;
 			}
+				change++;
+
 		}
         new XmlWriter(new File(curDb+File.separator+table_name+".xml"),entries,xmlr.getAtrr(),table_name);
         return change;
