@@ -17,7 +17,7 @@ public class UpdateParser extends MyParser{
 	public UpdateParser (String db){
 		curDb=db;
 	}
-	//*
+	/*
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete){ 
 		try { 
@@ -67,7 +67,7 @@ public class UpdateParser extends MyParser{
 	}
 	@Override
 	public Object parse(String query) throws SQLException {
-		log("U: "+query+"\n",false);
+		//log("U: "+query+"\n",false);
 		String column="",value="",operator="";
 		String reg1="(\\s*[Uu][Pp][Dd][Aa][Tt][Ee]\\s+)" // update 1
 				+ "(.*\\S)" // table name 2 // check table name can has spaces
@@ -103,9 +103,9 @@ public class UpdateParser extends MyParser{
 			c = new Condition(operator.charAt(0));
 		}
 		else if (regexChecker(reg2,query,query.length())){
-			table_name=query.replaceAll(reg1,"$2");
+			table_name=query.replaceAll(reg2,"$2");
 			try {
-				String[] col = query.replaceAll(reg1,"$4").replaceAll("(\\s*)$","").
+				String[] col = query.replaceAll(reg2,"$4").replaceAll("(\\s*)$","").
 						replaceAll("\\s*,\\s*",",").split("\\,");
 				cols=new String[col.length];
 				values=new String[col.length];
@@ -131,6 +131,7 @@ public class UpdateParser extends MyParser{
 		}catch(RuntimeException ex){
 			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name);
 		}
+		if (xmlr.getEntries().length==0)return 0;
 		attr=xmlr.getAtrr().split("\\,");
 		check();
 		boolean found=false;
