@@ -131,35 +131,37 @@ public class UpdateParser extends MyParser{
 		}catch(RuntimeException ex){
 			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name);
 		}
-		if (xmlr.getEntries().length==0)return 0;
+		if (entries.length==0)return 0;
 		attr=xmlr.getAtrr().split("\\,");
 		check();
-		boolean found=false;
 		int index=-1;
-		char c1=value.charAt(0);
-		char c2=value.charAt(value.length()-1);
-		boolean stringError=true;	
-		if (c1=='"'&&c2=='"' || c1=='\''&&c2=='\'' && value.length()>=3){
-			stringError=false;
-			value=value.substring(1,value.length()-1);
-		}
-		for (int i=0;i<attr.length&&!found;i++){
-			String[]p=attr[i].split("\\;");
-			if (p[0].equalsIgnoreCase(column)){
-				found=true;
-				if (p[1].toLowerCase().equals("int")){
-					try{
-						Integer.parseInt(value);
-					}catch(NumberFormatException ex){
-						throw new SQLException("Error: Not Valid INT Field(update)");
-					}
-				}
-				else if (stringError ||operator.equals(">")||operator.equals("<")){
-					throw new SQLException("Error: Not Valid Varchar Condition Field(update)");
-				}
-				index=i;
+		if (column.length()>0&&value.length()>0){	
+			boolean found=false;
+			char c1=value.charAt(0);
+			char c2=value.charAt(value.length()-1);
+			boolean stringError=true;	
+			if (c1=='"'&&c2=='"' || c1=='\''&&c2=='\'' && value.length()>=3){
+				stringError=false;
+				value=value.substring(1,value.length()-1);
 			}
-		}if (!found)throw new SQLException("Error: No Such Column "+column);
+			for (int i=0;i<attr.length&&!found;i++){
+				String[]p=attr[i].split("\\;");
+				if (p[0].equalsIgnoreCase(column)){
+					found=true;
+					if (p[1].toLowerCase().equals("int")){
+						try{
+							Integer.parseInt(value);
+						}catch(NumberFormatException ex){
+							throw new SQLException("Error: Not Valid INT Field(update)");
+						}
+					}
+					else if (stringError ||operator.equals(">")||operator.equals("<")){
+						throw new SQLException("Error: Not Valid Varchar Condition Field(update)");
+					}
+					index=i;
+				}
+			}if (!found)throw new SQLException("Error: No Such Column "+column);
+		}
 		int change=0;
 		entries = xmlr.getEntries();
 		for (int i=0;i<entries.length;i++){
