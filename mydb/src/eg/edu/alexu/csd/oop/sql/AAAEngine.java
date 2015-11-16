@@ -16,16 +16,12 @@ public class AAAEngine implements Database{
 		try {
 			f.createNewFile();
 			f.delete();
-		} catch(IOException e){
+		}catch(IOException e){
 			return false;// not valid
 		}
 		return true;
 	}
 	public AAAEngine (){
-		File f = new File ("testdb");
-		if (f.exists()&&f.isDirectory()){
-			f.delete();
-		}
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
