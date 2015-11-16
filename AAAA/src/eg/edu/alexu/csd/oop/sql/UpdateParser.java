@@ -175,7 +175,7 @@ public class UpdateParser extends MyParser{
 					entries[i][j]=vals[j];
 				}
 			}
-			if (update)change++;
+			if(update)change++;
 		}
         new XmlWriter(new File(curDb+File.separator+table_name+".xml"),entries,xmlr.getAtrr(),table_name);
         return change;
