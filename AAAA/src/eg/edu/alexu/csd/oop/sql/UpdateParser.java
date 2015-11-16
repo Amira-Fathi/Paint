@@ -67,7 +67,7 @@ public class UpdateParser extends MyParser{
 	}
 	@Override
 	public Object parse(String query) throws SQLException {
-		log("",true);
+		log("U: "+query+"\n",false);
 		String column="",value="",operator="";
 		String reg1="(\\s*[Uu][Pp][Dd][Aa][Tt][Ee]\\s+)" // update 1
 				+ "(.*\\S)" // table name 2 // check table name can has spaces

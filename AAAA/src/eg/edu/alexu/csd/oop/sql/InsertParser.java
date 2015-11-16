@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.sql;
 import java.io.File;
+import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 import eg.edu.alexu.csd.oop.xml.XmlReader;
 import eg.edu.alexu.csd.oop.xml.XmlWriter;
@@ -11,6 +12,18 @@ public class InsertParser extends MyParser{
 	public InsertParser (String db){
 		curDb = db;
 	}
+	//*
+	private static final String FILE_NAME = "/debug/Amira361995.log";
+	private static void log(String str, boolean delete){ 
+		try { 
+			if (delete) 
+				new File(FILE_NAME).delete(); 
+			java.nio.file.Files.write(java.nio.file.Paths.get(FILE_NAME), str.getBytes(), 
+					new File(FILE_NAME).exists() ? StandardOpenOption.APPEND : StandardOpenOption.CREATE); 
+		}catch (Throwable e1) { 
+			e1.printStackTrace(); 
+		} 
+	}//*/
 	private String[][] check1() throws SQLException{
 		if (values.length!=attr.length) 
 			throw new SQLException("Error(check1) :table "+table_name+" has "+attr.length+" columns but "+values.length+" are supplied");
@@ -76,6 +89,7 @@ public class InsertParser extends MyParser{
 	}
 	@Override
 	public Object parse(String query)throws SQLException{
+		log("I: "+query+"\n",false);
 		String reg1 = "(\\s*[Ii][Nn][Ss][Ee][Rr][Tt]\\s+[Ii][Nn][Tt][Oo]\\s+)" // INSERT INTO 1
 				   + "(.*\\S)"  // table name 2
 			       + "(\\s+[Vv][Aa][Ll][Uu][Ee][Ss]\\s*)" // VALUES 3

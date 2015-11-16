@@ -29,8 +29,9 @@ public class StructureQueryParser extends MyParser{
 	    }
 	    element.delete();
 	}
-/*	private static final String FILE_NAME = "/debug/Amira361995.log";
-	private static void log(String str, boolean delete) { 
+	//*
+	private static final String FILE_NAME = "/debug/Amira361995.log";
+	private static void log(String str, boolean delete){ 
 		try { 
 			if (delete) 
 				new File(FILE_NAME).delete(); 
@@ -39,7 +40,7 @@ public class StructureQueryParser extends MyParser{
 		}catch (Throwable e1) { 
 			e1.printStackTrace(); 
 		} 
-	}*/
+	}//*/
 
 	@Override
 	public Object parse(String query) throws SQLException {
@@ -57,6 +58,7 @@ public class StructureQueryParser extends MyParser{
 				"(.*\\S)(\\s*)";
 		
 		if (regexChecker(reg1,query,query.length())){
+			log("CD: "+query+"\n",false);
 			return createDb(query.replaceAll(reg1,"$2"));
 		}
 		else if (regexChecker(reg2,query,query.length())){
@@ -65,6 +67,7 @@ public class StructureQueryParser extends MyParser{
 		
 		// create table
 		else if (regexChecker(reg3,query,query.length())){
+			log("CT: "+query+"\n",false);
 			if (curDb==null)throw new RuntimeException("create table without database !!!!!!!!!!");
 			String tableName = query.replaceAll(reg3,"$2");
 			String col = query.replaceAll(reg3,"$4").replaceAll("^(\\()|(\\))$","").replaceAll("^(\\s*)|(\\s*)$","").
