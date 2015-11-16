@@ -22,7 +22,10 @@ public class AAAEngine implements Database{
 		return true;
 	}
 	public AAAEngine (){
-		log("",true);
+		File f = new File ("testdb");
+		if (f.exists()&&f.isDirectory()){
+			log ("at start it exist\n",false);
+		}
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
@@ -38,6 +41,7 @@ public class AAAEngine implements Database{
 	@Override
 	// current data base must be set in the createDatabase
 	public String createDatabase(String databaseName,boolean dropIfExists){
+
 		if (!validpath(databaseName.toLowerCase())) return null;
 		try{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
@@ -48,7 +52,11 @@ public class AAAEngine implements Database{
 	}
 	@Override	
 	public boolean executeStructureQuery(String query) throws SQLException{
-		
+		File f = new File ("testdb");
+		if (f.exists()&&f.isDirectory()){
+			log ("exist SQ\n",false);
+		}
+		log("SQ: "+query+"\n",false);
 		if (query==null)
 				throw new SQLException("Null Query "+query);
 		StructureQueryParser p = new StructureQueryParser(curdb);

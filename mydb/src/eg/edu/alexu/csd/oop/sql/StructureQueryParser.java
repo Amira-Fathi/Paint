@@ -90,18 +90,18 @@ private static final String FILE_NAME = "/debug/Amira361995.log";
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
 		if(f.exists()&& f.isDirectory()){
-		/*	if (db.equals("testdb")){
-				log("the folder is exist",false);
-			}*/
+		if (db.equals("testdb")){
+				log("the folder is exist\n",false);
+			}
 			 return false;
 		}
 		else{
 			if(f.mkdir()){
 				return true;
 			}
-			/*if (db.equals("testdb")){
-				log("the folderName is invalid",false);
-			}*/
+			if (db.equals("testdb")){
+				log("the folderName is invalid\n",false);
+			}
 			return false;
 		}
 	}
