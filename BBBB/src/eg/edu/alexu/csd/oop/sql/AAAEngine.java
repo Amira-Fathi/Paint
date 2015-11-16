@@ -22,9 +22,12 @@ public class AAAEngine implements Database{
 		return true;
 	}
 	public AAAEngine(){
+		log("",true);
+		/*
 		if (new File("testdb").exists()&&(new File("testdb").isDirectory())){
+			new File("testdb").delete();
 			log("Exist at first",false);
-		}
+		}*/
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
