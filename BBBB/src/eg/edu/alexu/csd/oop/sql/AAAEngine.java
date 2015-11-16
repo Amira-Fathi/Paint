@@ -46,7 +46,7 @@ public class AAAEngine implements Database{
 	}
 	@Override	
 	public boolean executeStructureQuery(String query) throws SQLException{
-		("",true);
+		log("",true);
 		//log ("SQ: "+query,false);
 		if (query==null)
 				throw new SQLException("Null Query "+query);
