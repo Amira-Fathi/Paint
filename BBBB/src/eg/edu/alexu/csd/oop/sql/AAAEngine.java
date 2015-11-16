@@ -16,13 +16,10 @@ public class AAAEngine implements Database{
 		try {
 			f.createNewFile();
 			f.delete();
-		} catch(IOException e){
+		}catch(IOException e){
 			return false;// not valid
 		}
 		return true;
-	}
-	public AAAEngine (){
-		if(new File("testdb").exists())new File("testdb").delete();
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
@@ -66,9 +63,6 @@ public class AAAEngine implements Database{
 		return (Object[][]) (new SelectParser(curdb)).parse(query);
 	}
 	@Override
-	// insert 
-	// delete 
-	// update 
 	public int executeUpdateQuery(String query) throws SQLException {
 		if (query==null)
 			throw new SQLException("Null Query");
@@ -80,28 +74,10 @@ public class AAAEngine implements Database{
 				return (int)((Parser)(Class.forName(classname)).
 						getConstructor(String.class).newInstance(curdb)).parse(query);
 		}
-		catch(ClassNotFoundException ex){
-			throw new SQLException("ClassNotFoundException");
-		}catch(InstantiationException ex){
-			throw new SQLException("InstantiationException");
-		}
-		catch(IllegalAccessException e){
-			throw new SQLException("IllegalAccessException");
-		}
-		catch( StringIndexOutOfBoundsException e){
-			throw new SQLException("StringIndexOutOfBoundsException");
-		}
-		catch(IllegalArgumentException e){
-			throw new SQLException("IllegalArgumentException");
-		}
-		catch(InvocationTargetException e){
-			throw new SQLException("InvocationTargetException");
-		}
-		catch(NoSuchMethodException e){
-			throw new SQLException("NoSuchMethodException");
-		}
-		catch(SecurityException e){
-			throw new SQLException("SecurityException");
+		catch(ClassNotFoundException|InstantiationException|IllegalAccessException|StringIndexOutOfBoundsException
+				|IllegalArgumentException|InvocationTargetException|NoSuchMethodException
+				|SecurityException ex){
+			throw new SQLException();
 		}
 	}
 }

@@ -84,12 +84,12 @@ public class StructureQueryParser extends MyParser{
 			throw new SQLException("SQL Syntax Error(Creation)");
 		}
 	}
-	private boolean createDb (String db){
-		
+	private boolean createDb (String db){	
 		File f = new File(db);
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
-		if(f.exists()&& f.isDirectory()){
+		if(f.exists()&&f.isDirectory()){
+			
 			 return false;
 		}
 		else{
