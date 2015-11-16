@@ -14,7 +14,7 @@ public class Condition {
 			if (Integer.parseInt(v1)<Integer.parseInt(v2)) return true;
 			return false;
 		case '=':
-			if (v1.equals(v2))return true;
+			if (v1.equalsIgnoreCase(v2))return true;
 			return false;
 		case 'n':return true;	
 		}
