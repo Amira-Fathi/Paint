@@ -129,7 +129,7 @@ public class UpdateParser extends MyParser{
 		try{
 			xmlr = new XmlReader(curDb+File.separator+table_name+".xml");
 		}catch(RuntimeException ex){
-			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name);
+			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name+" !!! hiiiii !!!\n"+query);
 		}
 		attr=xmlr.getAtrr().split("\\,");
 		check();
