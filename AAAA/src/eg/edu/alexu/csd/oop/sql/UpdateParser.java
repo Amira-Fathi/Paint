@@ -131,7 +131,6 @@ public class UpdateParser extends MyParser{
 		}catch(RuntimeException ex){
 			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name);
 		}
-		if (entries.length==0)return 0;
 		attr=xmlr.getAtrr().split("\\,");
 		check();
 		int index=-1;
