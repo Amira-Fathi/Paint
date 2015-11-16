@@ -36,7 +36,7 @@ public class AAAEngine implements Database{
 	// open a data base
 	// current data base must be set in the createDatabase
 	public String createDatabase(String databaseName,boolean dropIfExists) {
-		if (!validpath(databaseName)) return null;
+		if (!validpath(databaseName.toLowerCase())) return null;
 		try{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
 			executeStructureQuery("CREATE DATABASE "+databaseName);
