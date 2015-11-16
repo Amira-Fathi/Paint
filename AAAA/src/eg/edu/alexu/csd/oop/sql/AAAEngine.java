@@ -21,7 +21,7 @@ public class AAAEngine implements Database{
 		}
 		return true;
 	}
-	private static final String FILE_NAME = "/debug/Amira361995.log";
+	/*private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
 		try { 
 			if (delete) 
@@ -31,7 +31,7 @@ public class AAAEngine implements Database{
 		}catch (Throwable e1) { 
 			e1.printStackTrace(); 
 		} 
-	}
+	}*/
 	@Override
 	// open a data base
 	// current data base must be set in the createDatabase
@@ -59,7 +59,7 @@ public class AAAEngine implements Database{
 		if (query==null)
 			throw new SQLException("Null Query");
 		if (curdb==null) throw new SQLException("**executeQuery** null database");
-		return (String[][]) (new SelectParser(curdb)).parse(query);
+		return (Object[][]) (new SelectParser(curdb)).parse(query);
 	}
 	@Override
 	// insert 

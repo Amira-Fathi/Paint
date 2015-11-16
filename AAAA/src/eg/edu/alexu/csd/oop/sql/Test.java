@@ -10,7 +10,6 @@ public class Test {
 		System.out.println("hello");
 		Database e = new AAAEngine ();
 		e.createDatabase("sample", true);
-		e.executeUpdateQuery("INSERT INTO Students VALUES ('15','Lamia Farid',20)");
-	}
+		e.executeStructureQuery("CREATE TABLE table_name11(column_name1 varchar, column_name2 int, column_name3 varchar)");	}
 
 }

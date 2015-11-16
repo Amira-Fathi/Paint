@@ -9,13 +9,13 @@ public class Condition {
 		switch (o) {
 		case '>':
 			if (Integer.parseInt(v1)>Integer.parseInt(v2)) return true;
-			else return false;
+			return false;
 		case '<':
 			if (Integer.parseInt(v1)<Integer.parseInt(v2)) return true;
-			else return false;
+			return false;
 		case '=':
 			if (v1.equals(v2))return true;
-			else return false;
+			return false;
 		case 'n':return true;	
 		}
 		return true;

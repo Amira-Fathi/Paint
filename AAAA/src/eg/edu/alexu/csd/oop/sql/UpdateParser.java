@@ -16,19 +16,10 @@ public class UpdateParser extends MyParser{
 	public UpdateParser (String db){
 		curDb=db;
 	}
-	/*
-	UPDATE table_name
-	SET column1=value1,column2=value2,...
-	WHERE some_column=some_value
-	UPDATE table_name
-	SET column1=value1,column2=value2,...
-	WHERE some_column=some_value
-	*/
 	private void check()throws SQLException {
 		columns=new String[attr.length];
 		vals=new String[attr.length];
 		for (int i=0;i<cols.length;i++){
-			
 			boolean stringerror=true;
 			char c1=values[i].charAt(0);
 			char c2=values[i].charAt(values[i].length()-1);
@@ -39,8 +30,8 @@ public class UpdateParser extends MyParser{
 			boolean found = false;
 			for (int j=0;j<attr.length&&!found;j++){
 				String[]p=attr[j].split("\\;");
-				if (cols[i].toLowerCase().equals(p[0].toLowerCase())){
-					if (p[1].toLowerCase().equals("int")){
+				if (cols[i].equalsIgnoreCase(p[0])){
+					if (p[1].equalsIgnoreCase("int")){
 						try {
 							Integer.parseInt(values[i]);
 						}
@@ -84,15 +75,13 @@ public class UpdateParser extends MyParser{
 				values=new String[col.length];
 				for (int i=0;i<col.length;i++){
 					col[i]=col[i].replaceAll("\\s*=\\s*","=");
-					System.out.println(col[i]);
 					String[]p=col[i].split("=");
 					cols[i]=p[0];
 					values[i]=p[1];
 				}
 			}catch(ArrayIndexOutOfBoundsException ex){
-				throw new SQLException("SQL Unvalid : update!!!! " + query);
+				throw new SQLException("SQL Unvalid : update line91 " + query);
 			}
-			
 			String condition = query.replaceAll(reg1,"$6");
 			column = condition.replaceAll("(.+)([=<>])(.+)","$1").replaceAll("^(\\s*)|(\\s*)$","");
 			value = condition.replaceAll("(.+)([=<>])(.+)","$3").replaceAll("^(\\s*)|(\\s*)$","");;
@@ -104,6 +93,8 @@ public class UpdateParser extends MyParser{
 			try {
 				String[] col = query.replaceAll(reg1,"$4").replaceAll("(\\s*)$","").
 						replaceAll("\\s*,\\s*",",").split("\\,");
+				cols=new String[col.length];
+				values=new String[col.length];
 				for (int i=0;i<col.length;i++){
 					col[i]=col[i].replaceAll("\\s*=\\s*","=");
 					String[]p=col[i].split("=");
@@ -117,7 +108,7 @@ public class UpdateParser extends MyParser{
 			c = new Condition('n');
 		}
 		else {
-			throw new SQLException("SQL Unvalid : update!!!! " + query);
+			throw new SQLException("SQL Unvalid : update119 " + query);
 		}
 		// test file existence
 		XmlReader xmlr=null;
@@ -127,23 +118,20 @@ public class UpdateParser extends MyParser{
 			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name);
 		}
 		attr=xmlr.getAtrr().split("\\,");
-		// check columns existence & their corresponding values
 		check();
-		// check if valid condition
 		boolean found=false;
 		int index=-1;
+		char c1=value.charAt(0);
+		char c2=value.charAt(value.length()-1);
+		boolean stringError=true;	
+		if (c1=='"'&&c2=='"' || c1=='\''&&c2=='\'' && value.length()>=3){
+			stringError=false;
+			value=value.substring(1,value.length()-1);
+		}
 		for (int i=0;i<attr.length&&!found;i++){
 			String[]p=attr[i].split("\\;");
 			if (p[0].equalsIgnoreCase(column)){
 				found=true;
-				char c1=value.charAt(0);
-				char c2=value.charAt(value.length()-1);
-				boolean stringerror=true;	
-				// '15'
-				if (c1=='"'&&c2=='"' || c1=='\''&&c2=='\'' && value.length()>=3){
-					stringerror=false;
-					value=value.substring(1,value.length()-1);//15
-				}
 				if (p[1].toLowerCase().equals("int")){
 					try{
 						Integer.parseInt(value);
@@ -151,45 +139,22 @@ public class UpdateParser extends MyParser{
 						throw new SQLException("Error: Not Valid INT Field(update)");
 					}
 				}
-				// varchar
-				else if (stringerror ||operator.equals(">")||operator.equals("<")){
+				else if (stringError ||operator.equals(">")||operator.equals("<")){
 					throw new SQLException("Error: Not Valid Varchar Condition Field(update)");
-						
 				}
 				index=i;
 			}
 		}if (!found)throw new SQLException("Error: No Such Column "+column);
 		int change=0;
 		entries = xmlr.getEntries();
-		/*
-		for (int j=0;j<attr.length;j++){
-			String[]p=attr[j].split("\\;");
-			if (columns[j]!=null&&columns[j].equals(p[0])){
-				for (int i=0;i<entries.length;i++){
-					if (c.compare(entries[i][index],vals[j])){
-						boolean f=false;
-						for (int k=0;k<attr.length;k++){
-							if (vals[k]!=null){
-								f=true;
-								entries[i][k]=vals[k];
-							}
-						}
-						if (f)change++;
-					}
-				}
-			}
-		}*/
 		for (int i=0;i<entries.length;i++){
 			if (c.compare(entries[i][index],value)){
-				boolean f=false;
 				for (int j=0;j<attr.length;j++){
-					String[]p=attr[j].split("\\;");
-					if (columns[j]!=null&&columns[j].equalsIgnoreCase(p[0])){
+					if (columns[j]!=null){
 						entries[i][j]=vals[j];
-						f=true;
 					}
 				}
-				if (f)change++;
+				change++;
 			}
 		}
         new XmlWriter(new File(curDb+File.separator+table_name+".xml"),entries,xmlr.getAtrr(),table_name);

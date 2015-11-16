@@ -29,7 +29,7 @@ public class StructureQueryParser extends MyParser{
 	    }
 	    element.delete();
 	}
-	private static final String FILE_NAME = "/debug/Amira361995.log";
+/*	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
 		try { 
 			if (delete) 
@@ -39,7 +39,7 @@ public class StructureQueryParser extends MyParser{
 		}catch (Throwable e1) { 
 			e1.printStackTrace(); 
 		} 
-	}
+	}*/
 
 	@Override
 	public Object parse(String query) throws SQLException {
@@ -68,7 +68,7 @@ public class StructureQueryParser extends MyParser{
 			if (curDb==null)throw new RuntimeException("create table without database !!!!!!!!!!");
 			String tableName = query.replaceAll(reg3,"$2");
 			String col = query.replaceAll(reg3,"$4").replaceAll("^(\\()|(\\))$","").replaceAll("^(\\s*)|(\\s*)$","").
-					replaceAll("\\s*,\\s*",",").replaceAll("\\s+[Ii][Nn][Tt]",";int").replaceAll("\\s+[Vv][Aa][Rr][Cc][Hh][Aa][Rr]",";varhar");
+					replaceAll("\\s*,\\s*",",").replaceAll("\\s+[Ii][Nn][Tt]",";int").replaceAll("\\s+[Vv][Aa][Rr][Cc][Hh][Aa][Rr]",";varchar");
 			return createTable(tableName,curDb+File.separator+tableName+".xml",col);
 		}
 		// create table
@@ -128,7 +128,7 @@ public class StructureQueryParser extends MyParser{
 			}
 			// if success in creation the file 
 			if (f.exists()){
-				log(attr,true);
+				//log(attr,true);
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}
