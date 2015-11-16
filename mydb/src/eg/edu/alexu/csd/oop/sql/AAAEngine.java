@@ -24,7 +24,7 @@ public class AAAEngine implements Database{
 	public AAAEngine (){
 		File f = new File ("testdb");
 		if (f.exists()&&f.isDirectory()){
-			log ("at start it exist\n",false);
+			f.delete();
 		}
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
