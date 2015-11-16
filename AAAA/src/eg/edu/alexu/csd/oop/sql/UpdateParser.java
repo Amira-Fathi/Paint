@@ -67,7 +67,6 @@ public class UpdateParser extends MyParser{
 	}
 	@Override
 	public Object parse(String query) throws SQLException {
-		log("\nUpdateQuery"+query+"\n",false);
 		String column="",value="",operator="";
 		String reg1="(\\s*[Uu][Pp][Dd][Aa][Tt][Ee]\\s+)" // update 1
 				+ "(.*\\S)" // table name 2 // check table name can has spaces
@@ -160,14 +159,16 @@ public class UpdateParser extends MyParser{
 			}
 		}if (!found)throw new SQLException("Error: No Such Column "+column);
 		int change=0;
-		log("updateBefore\n",false);
+		log("",true);
+		/*log("Q: "+query+"\n",false);
+		log("Before\n",false);
 		for (int i=0;i<entries.length;i++){
 			for (int j=0;j<entries[0].length;j++){
 				log(entries[i][j]+" ",false);
 			}
 			log("\n",false);
 		}
-		
+		*/
 		entries = xmlr.getEntries();
 		for (int i=0;i<entries.length;i++){
 			if (c.compare(entries[i][index],value)){
@@ -179,14 +180,15 @@ public class UpdateParser extends MyParser{
 				change++;
 			}
 		}
-		log("updateAfter\n",false);
+		/*
+		log("After\n",false);
 		for (int i=0;i<entries.length;i++){
 			for (int j=0;j<entries[0].length;j++){
 				log(entries[i][j]+" ",false);
 			}
 			log("\n",false);
 		}
-		log("Finish\n",false);
+		log("Finish\n",false);*/
         new XmlWriter(new File(curDb+File.separator+table_name+".xml"),entries,xmlr.getAtrr(),table_name);
         return change;
 	}
