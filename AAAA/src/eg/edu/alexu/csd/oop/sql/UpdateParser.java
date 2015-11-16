@@ -167,14 +167,15 @@ public class UpdateParser extends MyParser{
 		for (int i=0;i<entries.length;i++){
 			update=false;
 			if(index==-1)update=true;
-			else if (c.compare(entries[i][index],value))update=true; 
+			else if (c.compare(entries[i][index],value)){
+				update=true; 
+			}
 			for (int j=0;j<attr.length&&update;j++){
 				if (columns[j]!=null){
 					entries[i][j]=vals[j];
 				}
 			}
-				change++;
-
+			if (update)change++;
 		}
         new XmlWriter(new File(curDb+File.separator+table_name+".xml"),entries,xmlr.getAtrr(),table_name);
         return change;

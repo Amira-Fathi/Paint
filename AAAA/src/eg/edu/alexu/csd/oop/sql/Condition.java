@@ -15,6 +15,7 @@ public class Condition {
 			return false;
 		case '=':
 			if (v1.equalsIgnoreCase(v2))return true;
+			System.out.println("yes");
 			return false;
 		case 'n':return true;	
 		}
