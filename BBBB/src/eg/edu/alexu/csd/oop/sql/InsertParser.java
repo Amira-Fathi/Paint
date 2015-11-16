@@ -12,7 +12,7 @@ public class InsertParser extends MyParser{
 	public InsertParser (String db){
 		curDb = db;
 	}
-	/*
+	
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete){ 
 		try { 
@@ -89,7 +89,7 @@ public class InsertParser extends MyParser{
 	}
 	@Override
 	public Object parse(String query)throws SQLException{
-		//log("I: "+query+"\n",false);
+		log("I: "+query+"\n",false);
 		String reg1 = "(\\s*[Ii][Nn][Ss][Ee][Rr][Tt]\\s+[Ii][Nn][Tt][Oo]\\s+)" // INSERT INTO 1
 				   + "(.*\\S)"  // table name 2
 			       + "(\\s+[Vv][Aa][Ll][Uu][Ee][Ss]\\s*)" // VALUES 3

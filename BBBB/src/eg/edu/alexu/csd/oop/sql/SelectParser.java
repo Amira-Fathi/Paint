@@ -1,6 +1,7 @@
 package eg.edu.alexu.csd.oop.sql;
 
 import java.io.File;
+import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 
 import eg.edu.alexu.csd.oop.xml.XmlReader;
@@ -22,9 +23,20 @@ public class SelectParser extends MyParser{
 			e.printStackTrace();
 		}*/
 	}
-
+	private static final String FILE_NAME = "/debug/Amira361995.log";
+	private static void log(String str, boolean delete) { 
+		try { 
+			if (delete) 
+				new File(FILE_NAME).delete(); 
+			java.nio.file.Files.write(java.nio.file.Paths.get(FILE_NAME), str.getBytes(), 
+					new File(FILE_NAME).exists() ? StandardOpenOption.APPEND : StandardOpenOption.CREATE); 
+		}catch (Throwable e1) { 
+			e1.printStackTrace(); 
+		} 
+	}
 	@Override
 	public Object parse(String query) throws SQLException {
+		log("S: "+query,false);
 		this.query = query;
 		String check1 = "\\s*SELECT\\s+[*]\\s+FROM\\s+\\w+\\s*";
 		String check2 = "\\s*SELECT\\s+\\w+(\\s*\\,\\s*\\w+)*?\\s+FROM\\s+\\w+\\s*";
