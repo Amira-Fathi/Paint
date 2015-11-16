@@ -127,7 +127,7 @@ public class UpdateParser extends MyParser{
 		// test file existence
 		XmlReader xmlr=null;
 		try{
-			xmlr = new XmlReader(curDb+File.separator+table_name.toLowerCase()+".xml");
+			xmlr = new XmlReader("db"+File.separator+curDb+File.separator+table_name.toLowerCase()+".xml");
 		}catch(RuntimeException ex){
 			throw new SQLException("Error :Not Found Such Table(UpdateTable) "+table_name+" !!! hiiiii !!!\n"+query);
 		}
@@ -177,7 +177,7 @@ public class UpdateParser extends MyParser{
 			}
 			if(update)change++;
 		}
-        new XmlWriter(new File(curDb+File.separator+table_name.toLowerCase()+".xml"),entries,xmlr.getAtrr(),table_name);
+        new XmlWriter(new File("db"+File.separator+curDb+File.separator+table_name.toLowerCase()+".xml"),entries,xmlr.getAtrr(),table_name);
         return change;
 	}
 }

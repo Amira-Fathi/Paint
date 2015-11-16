@@ -21,8 +21,18 @@ public class AAAEngine implements Database{
 		}
 		return true;
 	}
+	private void deleteFile(File element) {
+	    if (element.isDirectory()){
+	        for (File sub : element.listFiles()) {
+	            deleteFile(sub);
+	        }
+	    }
+	    element.delete();
+	}
 	public AAAEngine (){
-		
+		File f = new File ("db");
+		deleteFile(f);
+		f.mkdir();
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 

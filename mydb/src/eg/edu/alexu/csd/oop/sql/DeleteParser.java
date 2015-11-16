@@ -51,7 +51,7 @@ public class DeleteParser extends MyParser{
 			this.regexChecker("from", this.query, this.query.length());
 			int st = this.end+1;
 			String tableName = this.query.substring(st,this.query.length()).replaceAll("[\\s*]", "");
-			this.fileName = dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
+			this.fileName = "db"+File.separator+dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
 			try {
 				 this.read =new XmlReader(this.fileName);
 			} catch (RuntimeException e) {
@@ -88,14 +88,14 @@ public class DeleteParser extends MyParser{
 			String tableName = content[2];
 			String condition = content[4];
 			String operator = String.valueOf(this.query.charAt(noIndex));*/
-			this.fileName = dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
+			this.fileName = "db"+File.separator+dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
 			try {
 				this.read =new XmlReader(this.fileName);
 			} catch (RuntimeException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			this.fileName = dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
+			this.fileName = "db"+File.separator+dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
 			File file = new File(this.fileName);
 			String[][] tableStr = this.read.getEntries();
 			this.attribute = this.read.getAtrr();

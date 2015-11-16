@@ -125,7 +125,7 @@ public class InsertParser extends MyParser{
 		}
 		XmlReader xmlr=null;
 		try{
-			xmlr = new XmlReader(curDb+File.separator+table_name.toLowerCase()+".xml");
+			xmlr = new XmlReader("db"+File.separator+curDb+File.separator+table_name.toLowerCase()+".xml");
 		}catch(RuntimeException ex){
 			throw new SQLException("Error :Not Found Such Table(insertParse) "+table_name);
 		}
@@ -140,7 +140,7 @@ public class InsertParser extends MyParser{
 		result = new String [xmlr.getEntries().length+1][];
         System.arraycopy(xmlr.getEntries() , 0, result, 0, xmlr.getEntries().length);
         System.arraycopy(v, 0, result, xmlr.getEntries().length, v.length);
-        new XmlWriter(new File(curDb+File.separator+table_name.toLowerCase()+".xml"),result,xmlr.getAtrr(),table_name);
+        new XmlWriter(new File("db"+File.separator+curDb+File.separator+table_name.toLowerCase()+".xml"),result,xmlr.getAtrr(),table_name);
         return 1;
 	}
 }

@@ -72,13 +72,13 @@ private static final String FILE_NAME = "/debug/Amira361995.log";
 			String tableName = query.replaceAll(reg3,"$2");
 			String col = query.replaceAll(reg3,"$4").replaceAll("^(\\()|(\\))$","").replaceAll("^(\\s*)|(\\s*)$","").
 					replaceAll("\\s*,\\s*",",").replaceAll("\\s+[Ii][Nn][Tt]",";int").replaceAll("\\s+[Vv][Aa][Rr][Cc][Hh][Aa][Rr]",";varchar");
-			return createTable(tableName.toLowerCase(),curDb+File.separator+tableName.toLowerCase()+".xml",col);
+			return createTable(tableName.toLowerCase(),"db"+File.separator+curDb+File.separator+tableName.toLowerCase()+".xml",col);
 		}
 		// create table
 		
 		else if (regexChecker(reg4,query,query.length())){
 			if (curDb==null)throw new RuntimeException("drop table without database !!!!!!!!!!");
-			return dropTable(curDb+File.separator+query.replaceAll(reg4,"$2").toLowerCase()+".xml");
+			return dropTable("db"+File.separator+curDb+File.separator+query.replaceAll(reg4,"$2").toLowerCase()+".xml");
 		}
 		else { 
 			throw new SQLException("SQL Syntax Error(Creation)");
@@ -86,27 +86,21 @@ private static final String FILE_NAME = "/debug/Amira361995.log";
 	}
 	private boolean createDb (String db){
 	
-		File f = new File(db);
+		File f = new File("db"+File.separator+db);
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
 		if(f.exists()&& f.isDirectory()){
-		if (db.equals("testdb")){
-				log("the folder is exist\n",false);
-			}
 			 return false;
 		}
 		else{
 			if(f.mkdir()){
 				return true;
 			}
-			if (db.equals("testdb")){
-				log("the folderName is invalid\n",false);
-			}
 			return false;
 		}
 	}
 	private boolean dropDb(String db){
-		File f = new File(db);
+		File f = new File("db"+File.separator+db);
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
 			if (curDb!=null){

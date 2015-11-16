@@ -39,7 +39,7 @@ public class SelectParser extends MyParser{
 			this.regexChecker("from", this.query, this.query.length());
 			String tableName = this.query.substring(this.end+1,this.query.length()).replaceAll("[\\s*]", "");
 		   System.out.println(tableName);
-		   String fileName = this.dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
+		   String fileName = "db"+File.separator+this.dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
 		   //File file = new File(fileName);
 		    try {
 				this.read = new XmlReader(fileName);
@@ -151,7 +151,7 @@ public class SelectParser extends MyParser{
 	
 	private void intialize(String tableName) throws SQLException
 	{
-		String fileName = this.dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
+		String fileName = "db"+File.separator+this.dataBaseName+File.separatorChar+tableName.toLowerCase()+".xml";
 		
 	    try {
 			this.read = new XmlReader(fileName);
