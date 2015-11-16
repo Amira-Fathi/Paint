@@ -30,7 +30,7 @@ public class StructureQueryParser extends MyParser{
 	    element.delete();
 	}
 
-/*	private static final String FILE_NAME = "/debug/Amira361995.log";
+private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete){ 
 		try { 
 			if (delete) 
@@ -85,16 +85,21 @@ public class StructureQueryParser extends MyParser{
 		}
 	}
 	private boolean createDb (String db){
-		
 		File f = new File(db);
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
 		if(f.exists()&& f.isDirectory()){
+			if (db.equals("testdb")){
+				log("the folder is exist",false);
+			}
 			 return false;
 		}
 		else{
 			if(f.mkdir()){
 				return true;
+			}
+			if (db.equals("testdb")){
+				log("the folderName is invalid",false);
 			}
 			return false;
 		}
