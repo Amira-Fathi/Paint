@@ -8,7 +8,9 @@ public class Test {
 
 	public static void main(String[] args) throws SQLException {
 		Database db = new AAAEngine ();
-		boolean created = db.executeStructureQuery("CREATE DATABASE TestDB");
-		System.out.println(created);
+		db.createDatabase("TestDB_1", true);
+		System.out.println(db.executeStructureQuery("CREATE DATABASE TestDB_2"));
+		System.out.println(db.executeStructureQuery("CREATE DATABASE TestDB_3"));
+		System.out.println(db.executeStructureQuery("CREATE DATABASE TestDB_4"));
 	}
 }
