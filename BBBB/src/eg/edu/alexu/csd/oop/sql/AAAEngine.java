@@ -33,7 +33,6 @@ public class AAAEngine implements Database{
 		} 
 	}
 	@Override
-	// open a data base
 	// current data base must be set in the createDatabase
 	public String createDatabase(String databaseName,boolean dropIfExists) {
 		if (!validpath(databaseName.toLowerCase())) return null;
