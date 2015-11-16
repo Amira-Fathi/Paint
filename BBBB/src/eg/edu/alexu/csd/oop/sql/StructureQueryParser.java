@@ -59,10 +59,10 @@ public class StructureQueryParser extends MyParser{
 		
 		if (regexChecker(reg1,query,query.length())){
 		//	log("CD: "+query+"\n",false);
-			return createDb(query.replaceAll(reg1,"$2"));
+			return createDb(query.replaceAll(reg1,"$2").toLowerCase());
 		}
 		else if (regexChecker(reg2,query,query.length())){
-			return dropDb(query.replaceAll(reg2,"$2"));
+			return dropDb(query.replaceAll(reg2,"$2").toLowerCase());
 		}
 		
 		// create table
