@@ -22,7 +22,7 @@ public class AAAEngine implements Database{
 		return true;
 	}
 	private void deleteFile(File element) {
-	    if (element.isDirectory()){
+	    if (element.exists()&&element.isDirectory()){
 	        for (File sub : element.listFiles()) {
 	            deleteFile(sub);
 	        }
