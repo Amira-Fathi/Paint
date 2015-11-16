@@ -159,8 +159,8 @@ public class UpdateParser extends MyParser{
 			}
 		}if (!found)throw new SQLException("Error: No Such Column "+column);
 		int change=0;
-		log("",true);
-		/*log("Q: "+query+"\n",false);
+		//log("",true);
+		log("Q: "+query+"\n",false);
 		log("Before\n",false);
 		for (int i=0;i<entries.length;i++){
 			for (int j=0;j<entries[0].length;j++){
@@ -168,7 +168,7 @@ public class UpdateParser extends MyParser{
 			}
 			log("\n",false);
 		}
-		*/
+		
 		entries = xmlr.getEntries();
 		for (int i=0;i<entries.length;i++){
 			if (c.compare(entries[i][index],value)){
@@ -180,7 +180,7 @@ public class UpdateParser extends MyParser{
 				change++;
 			}
 		}
-		/*
+		
 		log("After\n",false);
 		for (int i=0;i<entries.length;i++){
 			for (int j=0;j<entries[0].length;j++){
@@ -188,7 +188,7 @@ public class UpdateParser extends MyParser{
 			}
 			log("\n",false);
 		}
-		log("Finish\n",false);*/
+		log("Finish\n",false);
         new XmlWriter(new File(curDb+File.separator+table_name+".xml"),entries,xmlr.getAtrr(),table_name);
         return change;
 	}
