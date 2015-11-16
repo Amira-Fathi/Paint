@@ -1,13 +1,14 @@
 package eg.edu.alexu.csd.oop.sql;
 
 import java.io.File;
-import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 
 import eg.edu.alexu.csd.oop.xml.XmlReader;
 public class SelectParser extends MyParser{
 	private String query , dataBaseName , attribute;
-	private String[][] selectedItem, tableArray = null ,updatedTable  = null ;
+	//private String []getData = null;
+	private String[][] tableArray = null ;
+	private Object[][] updatedTable  = null;
 	private int [] selectedColIndex ,selected ;
 	private  XmlReader read;
 	/*public static void main(String[] args) {
@@ -23,20 +24,9 @@ public class SelectParser extends MyParser{
 			e.printStackTrace();
 		}*/
 	}
-	private static final String FILE_NAME = "/debug/Amira361995.log";
-	private static void log(String str, boolean delete) { 
-		try { 
-			if (delete) 
-				new File(FILE_NAME).delete(); 
-			java.nio.file.Files.write(java.nio.file.Paths.get(FILE_NAME), str.getBytes(), 
-					new File(FILE_NAME).exists() ? StandardOpenOption.APPEND : StandardOpenOption.CREATE); 
-		}catch (Throwable e1) { 
-			e1.printStackTrace(); 
-		} 
-	}
+
 	@Override
 	public Object parse(String query) throws SQLException {
-		log("S: "+query,false);
 		this.query = query;
 		String check1 = "\\s*SELECT\\s+[*]\\s+FROM\\s+\\w+\\s*";
 		String check2 = "\\s*SELECT\\s+\\w+(\\s*\\,\\s*\\w+)*?\\s+FROM\\s+\\w+\\s*";
@@ -57,8 +47,23 @@ public class SelectParser extends MyParser{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-		    this.updatedTable = this.read.getEntries(); 
-		  //new XmlWriter( file, this.tableArray ,this.attribute,tableName);
+		    this.attribute = this.read.getAtrr();
+		    String[] attr =  this.attribute.split(",");
+		    this.tableArray = this.read.getEntries();
+		    this.updatedTable = new Object[this.tableArray.length][this.tableArray[0].length];
+		    for(int i = 0 ; i < this.tableArray.length;i++)
+		    {
+		    	for(int j = 0 ; j< this.tableArray[0].length ; j++)
+		    	{
+		    		String []type = attr[j].split(";");
+			    	if(type[1].equalsIgnoreCase("int"))
+			    		this.updatedTable[i][j] = Integer.parseInt(this.tableArray[i][j]);
+			    	else
+			    		this.updatedTable[i][j] = this.tableArray[i][j];
+		    	}
+		    	
+		    }
+		   // this.updatedTable = 
 		}
 		 /////////////////////////////////////////////////////////////////
 		
@@ -68,20 +73,23 @@ public class SelectParser extends MyParser{
 			this.regexChecker("from", this.query, this.query.length());
 			String tableName = this.query.substring(this.end+1,this.query.length()).replaceAll("[\\s*]", "");
 			intialize(tableName);
+		     String[] attr =  this.attribute.split(",");
 			  //System.out.println(this.selectedColIndex.length + "dkdkdkdkkdkdkdkdkdkdk" +this.tableArray.length );
-			
-			 selectedItem = new String[this.tableArray.length][this.selectedColIndex.length];
+			this.updatedTable = new Object[this.tableArray.length][this.selectedColIndex.length];
 			for(int i = 0 ; i < this.tableArray.length ; i++)
 			{
 				for(int j = 0 ; j < this.selectedColIndex.length ; j++)
 				{
-					selectedItem[i][j] = this.tableArray[i][selectedColIndex[j]];
+					String []type = attr[selectedColIndex[j]].split(";");
+					if(type[1].equalsIgnoreCase("int"))
+					 updatedTable[i][j] = Integer.parseInt(this.tableArray[i][selectedColIndex[j]]);
+					else
+						updatedTable[i][j] = this.tableArray[i][selectedColIndex[j]];
 					//System.out.print(selectedItem[i][j] + "  ");
 					
 				}
 				//System.out.println();
 			}
-			this.updatedTable = selectedItem ;
 		   	
 		}
 		
@@ -103,20 +111,28 @@ public class SelectParser extends MyParser{
 			String tableName = this.query.substring(st,en).replaceAll("[\\s*]", "");
 			intialize(tableName); 
 			this.selected = this.selectAfterOperator(this.attribute, this.query, condition, this.tableArray, operator);
-			
 		       if(this.returnedVal == 0)
-				 this.updatedTable = new String[0][0];
+				 this.updatedTable = new Object[0][0];
 			else
-				this.updatedTable = new String[this.returnedVal][this.selectedColIndex.length];
+				this.updatedTable = new Object[this.returnedVal][this.selectedColIndex.length];
 			int index = 0 ;
 			 if(this.tableArray == null)
 			       throw new NullPointerException(this.query + " in this 3333333" );
+			
+			
+				
+			 String[] attr =  this.attribute.split(",");
+			
 			for(int i = 0 ; i < this.tableArray.length && (this.returnedVal != 0); i++)
 			{
 				if(this.selected[i] == 1){
 					for(int j = 0 ; j < this.selectedColIndex.length ; j++)
 					{
-						updatedTable[index][j] = this.tableArray[i][selectedColIndex[j]];
+						 String []type = attr[selectedColIndex[j]].split(";");
+					    if(type[1].equalsIgnoreCase("int"))
+						  updatedTable[index][j] = Integer.parseInt(this.tableArray[i][selectedColIndex[j]]);
+					    else
+					    	updatedTable[index][j] = this.tableArray[i][selectedColIndex[j]];
 						//System.out.print(updatedTable[index][j] + " ");
 					}
 					//System.out.println();
@@ -147,5 +163,7 @@ public class SelectParser extends MyParser{
 	  this.attribute = this.read.getAtrr();
 	    this.selectedColIndex = this.selectBeforeOperator(this.attribute, this.query, "SELECT", "from", this.tableArray);
 	}
+	
+	
 		
 }
