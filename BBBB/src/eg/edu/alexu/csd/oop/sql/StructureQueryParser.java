@@ -30,7 +30,7 @@ public class StructureQueryParser extends MyParser{
 	    element.delete();
 	}
 
-/*	private static final String FILE_NAME = "/debug/Amira361995.log";
+	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete){ 
 		try { 
 			if (delete) 
@@ -105,6 +105,7 @@ public class StructureQueryParser extends MyParser{
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
 			if (curDb!=null){
+				log("current : is deleted"+curDb+"\n",false);
 				if(curDb.equalsIgnoreCase(db))curDb=null;
 			}
 			return true;
@@ -133,7 +134,8 @@ public class StructureQueryParser extends MyParser{
 			}
 			// if success in creation the file 
 			if (f.exists()){
-				//log(attr,true);
+				log("CT : "+table_name+"\n",false);
+				
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}
