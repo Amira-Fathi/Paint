@@ -86,6 +86,7 @@ public class StructureQueryParser extends MyParser{
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
 		if(f.exists()&&f.isDirectory()){
+			 curDb = db;
 			 return true;
 		}
 		else{
