@@ -32,10 +32,10 @@ public class AAAEngine implements Database{
 	
 	public AAAEngine(){
 		curdb=null;
-		//log("",true);	
+		log("",true);	
 		if (new File("testdb").exists()&&(new File("testdb").isDirectory())){
 			deleteFile(new File("testdb"));
-			log("Exist at first & i delete it\n",false);
+			//log("Exist at first & i delete it\n",false);
 		}
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
@@ -57,7 +57,7 @@ public class AAAEngine implements Database{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);
 			executeStructureQuery("CREATE DATABASE "+databaseName);
 			curdb=databaseName.toLowerCase();
-			log ("current : "+curdb+"\n",false);
+			//log ("current : "+curdb+"\n",false);
 		}catch(SQLException ex){}
 		return curdb;
 	}

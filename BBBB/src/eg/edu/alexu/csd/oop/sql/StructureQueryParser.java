@@ -1,12 +1,9 @@
 package eg.edu.alexu.csd.oop.sql;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
-
 import eg.edu.alexu.csd.oop.xml.XmlWriter;
-
 public class StructureQueryParser extends MyParser{
 	// CREATE DATABASE database_name
 	// DROP DATABASE database_name
@@ -64,7 +61,6 @@ public class StructureQueryParser extends MyParser{
 		else if (regexChecker(reg2,query,query.length())){
 			return dropDb(query.replaceAll(reg2,"$2").toLowerCase());
 		}
-		
 		// create table
 		else if (regexChecker(reg3,query,query.length())){
 		//	log("CT: "+query+"\n",false);
@@ -105,7 +101,6 @@ public class StructureQueryParser extends MyParser{
 		if (f.exists() && f.isDirectory()){
 			deleteFile(f);
 			if (curDb!=null){
-				log("current : is deleted"+curDb+"\n",false);
 				if(curDb.equalsIgnoreCase(db))curDb=null;
 			}
 			return true;
@@ -134,7 +129,7 @@ public class StructureQueryParser extends MyParser{
 			}
 			// if success in creation the file 
 			if (f.exists()){
-				log("CT : "+table_name+"\n",false);
+				//log("CT : "+table_name+"\n",false);
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}
