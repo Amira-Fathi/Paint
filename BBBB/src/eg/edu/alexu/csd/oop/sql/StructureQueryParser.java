@@ -82,11 +82,8 @@ public class StructureQueryParser extends MyParser{
 	}
 	private boolean createDb (String db){	
 		File f = new File(db);
-		
-		// also if not valid name exist will return false
-		// exist but not directory --> file not folder
-		
 		if(f.exists()&&f.isDirectory()){
+			 curDb=db;
 			 return true;
 		}
 		else{
