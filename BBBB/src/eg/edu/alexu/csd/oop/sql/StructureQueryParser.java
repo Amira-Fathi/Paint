@@ -85,12 +85,12 @@ public class StructureQueryParser extends MyParser{
 		
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
-		
 		if(f.exists()&&f.isDirectory()){
-			 return false;
+			 return true;
 		}
 		else{
 			if(f.mkdir()){
+				curDb = db;
 				return true;
 			}
 			return false;
@@ -99,10 +99,9 @@ public class StructureQueryParser extends MyParser{
 	private boolean dropDb(String db){
 		File f = new File(db);
 		if (f.exists() && f.isDirectory()){
-			deleteFile(f);
-			if (curDb!=null){
-				if(curDb.equalsIgnoreCase(db))curDb=null;
-			}
+	        for (File sub : new File(db).listFiles()) {
+	            sub.delete();
+	        }
 			return true;
 		}
 		return false; // not found folder
@@ -129,7 +128,7 @@ public class StructureQueryParser extends MyParser{
 			}
 			// if success in creation the file 
 			if (f.exists()){
-				log("CT : "+table_name+"\n",false);
+				//log("CT : "+table_name+"\n",false);
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}

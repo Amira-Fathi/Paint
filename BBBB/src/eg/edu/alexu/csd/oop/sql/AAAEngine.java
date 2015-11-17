@@ -32,11 +32,6 @@ public class AAAEngine implements Database{
 	
 	public AAAEngine(){
 		curdb=null;
-		//log("",true);	
-		if (new File("testdb").exists()&&(new File("testdb").isDirectory())){
-			deleteFile(new File("testdb"));
-			log("Exist at first & i delete it\n",false);
-		}
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
@@ -63,7 +58,7 @@ public class AAAEngine implements Database{
 	}
 	@Override	
 	public boolean executeStructureQuery(String query) throws SQLException{
-		log ("SQ : "+query+"\n",false);
+		//log ("SQ : "+query+"\n",false);
 		if (query==null)
 				throw new SQLException("Null Query "+query);
 		StructureQueryParser p = new StructureQueryParser(curdb);
