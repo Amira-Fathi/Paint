@@ -29,7 +29,9 @@ public class AAAEngine implements Database{
 		}
 		return true;
 	}
+	
 	public AAAEngine(){
+		curdb=null;
 		//log("",true);	
 		if (new File("testdb").exists()&&(new File("testdb").isDirectory())){
 			deleteFile(new File("testdb"));
@@ -49,7 +51,7 @@ public class AAAEngine implements Database{
 	}
 	@Override
 	// current data base must be set in the createDatabase
-	public String createDatabase(String databaseName,boolean dropIfExists) {
+	public String createDatabase(String databaseName,boolean dropIfExists){
 		if (!validpath(databaseName.toLowerCase())) return null;
 		try{
 			if (dropIfExists)executeStructureQuery("DROP DATABASE "+databaseName);

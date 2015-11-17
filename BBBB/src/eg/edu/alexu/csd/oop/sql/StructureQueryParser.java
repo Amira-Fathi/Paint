@@ -68,7 +68,7 @@ public class StructureQueryParser extends MyParser{
 		// create table
 		else if (regexChecker(reg3,query,query.length())){
 		//	log("CT: "+query+"\n",false);
-			if (curDb==null)throw new RuntimeException("create table without database !!!!!!!!!!");
+			if (curDb==null)throw new SQLException(query+" "+"create table without database !!!!!!!!!!");
 			String tableName = query.replaceAll(reg3,"$2");
 			String col = query.replaceAll(reg3,"$4").replaceAll("^(\\()|(\\))$","").replaceAll("^(\\s*)|(\\s*)$","").
 					replaceAll("\\s*,\\s*",",").replaceAll("\\s+[Ii][Nn][Tt]",";int").replaceAll("\\s+[Vv][Aa][Rr][Cc][Hh][Aa][Rr]",";varchar");
@@ -77,7 +77,7 @@ public class StructureQueryParser extends MyParser{
 		// create table
 		
 		else if (regexChecker(reg4,query,query.length())){
-			if (curDb==null)throw new RuntimeException("drop table without database !!!!!!!!!!");
+			if (curDb==null)throw new SQLException(query+" "+"drop table without database !!!!!!!!!!");
 			return dropTable(curDb+File.separator+query.replaceAll(reg4,"$2").toLowerCase()+".xml");
 		}
 		else { 
@@ -135,7 +135,6 @@ public class StructureQueryParser extends MyParser{
 			// if success in creation the file 
 			if (f.exists()){
 				log("CT : "+table_name+"\n",false);
-				
 				new XmlWriter(f,new String[][]{},attr,table_name);
 				return true;
 			}
