@@ -80,14 +80,16 @@ public class StructureQueryParser extends MyParser{
 			throw new SQLException("SQL Syntax Error(Creation)");
 		}
 	}
-	private boolean createDb (String db){	
+	private boolean createDb(String db){	
 		File f = new File(db);
-		
 		// also if not valid name exist will return false
 		// exist but not directory --> file not folder
 		if(f.exists()&&f.isDirectory()){
-			 curDb = db;
-			 return true;
+			if (f.listFiles().length>0){
+				dropDb(db);
+			}
+			curDb = db;
+			return true;
 		}
 		else{
 			if(f.mkdir()){
@@ -99,10 +101,11 @@ public class StructureQueryParser extends MyParser{
 	}
 	private boolean dropDb(String db){
 		File f = new File(db);
-		if (f.exists() && f.isDirectory()){
+		if (f.exists() && f.isDirectory()&&f.listFiles().length==0){
 	        for (File sub : new File(db).listFiles()) {
 	            sub.delete();
 	        }
+	        
 			return true;
 		}
 		return false; // not found folder
