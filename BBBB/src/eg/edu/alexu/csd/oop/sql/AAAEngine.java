@@ -32,6 +32,11 @@ public class AAAEngine implements Database{
 	
 	public AAAEngine(){
 		curdb=null;
+		//log("",true);	
+		if (new File("testdb").exists()&&(new File("testdb").isDirectory())){
+			deleteFile(new File("testdb"));
+		//	log("Exist at first & i delete it\n",false);
+		}
 	}
 	private static final String FILE_NAME = "/debug/Amira361995.log";
 	private static void log(String str, boolean delete) { 
