@@ -24,7 +24,6 @@ public class ModelEngine implements DrawingEngine{
 		if(modelEngine==null)modelEngine=new ModelEngine();
 		return modelEngine;
 	}
-	
 	public static void destoryInstance(){
 		modelEngine = null;
    }

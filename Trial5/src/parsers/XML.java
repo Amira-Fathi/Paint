@@ -23,7 +23,7 @@ import eg.edu.alexu.csd.oop.draw.Shape;
 public class XML implements Parser{
 	private File data;
 	@Override
-	public void getPath(String path) {
+	public void getPath(String path){
 		data = new File(path);
 	}
 	@Override
@@ -35,7 +35,6 @@ public class XML implements Parser{
 			Document doc = docBuilder.parse(data);
 			Element root = doc.getDocumentElement();
 			NodeList children = root.getChildNodes();
-			
 			for (int i=0;i<children.getLength();i++){
 				Shape s = (Shape)(Class.forName(children.item(i).getNodeName())).newInstance();
 				Map<String,Double> map = s.getProperties();
@@ -121,7 +120,7 @@ public class XML implements Parser{
 				Element pos = doc.createElement("position");
 				String point;
 				if (arr[i].getPosition()==null) point = "x";
-				else{ 
+				else{
 					point = ((Integer)(arr[i].getPosition().x)).toString()+","+((Integer)(arr[i].getPosition().y)).toString();
 				}
 				pos.appendChild(doc.createTextNode(point));
@@ -153,16 +152,13 @@ public class XML implements Parser{
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
 			StreamResult result = new StreamResult(data);
-			transformer.transform(source, result);
+			transformer.transform(source,result);
 		}catch (ParserConfigurationException ex1) {
 			throw new RuntimeException("ParserConfigurationException");
 		}catch (TransformerConfigurationException ex){
-		
 				throw new RuntimeException ("TransformerConfigurationException");
-
 		}catch (TransformerException ex){
 			throw new RuntimeException ("TransformerException");
 		}
-		
 	}
 }

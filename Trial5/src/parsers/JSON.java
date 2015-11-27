@@ -64,13 +64,13 @@ public class JSON implements Parser{
     		    	shapes.add(s);
     		    	j++;
     		    }	
-		}catch (FileNotFoundException ex){
-			throw new RuntimeException ("FileNotFoundException");
 		}
-		catch(IOException ex){throw new RuntimeException ("IOException");}
+		
 		catch (InstantiationException ex){throw new RuntimeException ("InstantiationException");}
 		catch (IllegalAccessException ex){throw new RuntimeException ("IllegalAccessException");}
 		catch (ClassNotFoundException ex){throw new RuntimeException ("ClassNotFoundException");}
+		catch(FileNotFoundException ex){throw new RuntimeException("FileNotFoundException");}
+		catch(IOException ex){throw new RuntimeException("IOException");}
 		return shapes;
 	}
 	public void write(ArrayList<Shape> shapes)  {

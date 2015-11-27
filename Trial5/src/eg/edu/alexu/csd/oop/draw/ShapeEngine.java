@@ -50,5 +50,4 @@ public abstract class ShapeEngine implements Shape{
 	public abstract Object clone()throws CloneNotSupportedException ;
 	@Override
 	public abstract void draw(Graphics canvas);
-
 }
