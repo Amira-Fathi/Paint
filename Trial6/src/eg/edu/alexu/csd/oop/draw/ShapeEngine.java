@@ -10,7 +10,7 @@ public abstract class ShapeEngine implements Shape{
 	public ShapeEngine(){
 		pos=null;
 		fillColor=null;
-		color=Color.black;
+		color=null;
 	}
 	@Override
 	public void setPosition(Point position){
