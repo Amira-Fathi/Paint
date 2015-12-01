@@ -185,7 +185,7 @@ public class Controller{
 		public void actionPerformed(ActionEvent e) {
 			try{
 				if (selected!=null){
-					Shape New = (Shape)selected.clone();
+					final Shape New = (Shape)selected.clone();
 					JButton b=new JButton ("Color");
 					b.addActionListener(new ActionListener(){
 						public void actionPerformed (ActionEvent e){
@@ -211,7 +211,7 @@ public class Controller{
 		public void actionPerformed(ActionEvent e) {
 			try{
 				if (selected!=null){
-					Shape New = (Shape)selected.clone();
+					final Shape New = (Shape)selected.clone();
 					JButton b=new JButton ("Color");
 					b.addActionListener(new ActionListener(){
 						public void actionPerformed (ActionEvent e){
