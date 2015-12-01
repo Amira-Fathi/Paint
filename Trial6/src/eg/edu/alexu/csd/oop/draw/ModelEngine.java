@@ -55,9 +55,9 @@ public class ModelEngine implements DrawingEngine{
 		String s2= newShape.getClass().getSimpleName();
 		if (!s1.equals(s2)) throw new RuntimeException("the two shapes haven't the same type in update_shape");
 		if (oldShape==null||newShape==null) throw new NullPointerException("one of the two shapes is null in update_shape");
-		shapes.remove(oldShape);
-		shapes.add(newShape);
-		System.out.println(newShape.getColor());
+		int ind = shapes.indexOf(oldShape);
+		shapes.remove(ind);
+		shapes.add(ind,newShape);
 		h.add(shapes);
 	}
 	@Override
