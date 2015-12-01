@@ -57,6 +57,7 @@ public class ModelEngine implements DrawingEngine{
 		if (oldShape==null||newShape==null) throw new NullPointerException("one of the two shapes is null in update_shape");
 		shapes.remove(oldShape);
 		shapes.add(newShape);
+		System.out.println(newShape.getColor());
 		h.add(shapes);
 	}
 	@Override

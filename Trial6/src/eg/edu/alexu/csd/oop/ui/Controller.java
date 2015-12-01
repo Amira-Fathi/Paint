@@ -185,7 +185,7 @@ public class Controller{
 		public void actionPerformed(ActionEvent e) {
 			try{
 				if (selected!=null){
-					final Shape New = (Shape)selected.clone();
+					Shape New = (Shape)selected.clone();
 					JButton b=new JButton ("Color");
 					b.addActionListener(new ActionListener(){
 						public void actionPerformed (ActionEvent e){
@@ -211,7 +211,7 @@ public class Controller{
 		public void actionPerformed(ActionEvent e) {
 			try{
 				if (selected!=null){
-					final Shape New = (Shape)selected.clone();
+					Shape New = (Shape)selected.clone();
 					JButton b=new JButton ("Color");
 					b.addActionListener(new ActionListener(){
 						public void actionPerformed (ActionEvent e){
@@ -274,6 +274,7 @@ public class Controller{
 					engine.updateShape(selected,New);
 					paintGui.getcanvas().update(paintGui.getcanvas().getGraphics());
 					engine.refresh(paintGui.getcanvas().getGraphics());
+					System.out.println(New.getColor());
 					moveFlag=false;
 					pos=null;
 					selected=null;
