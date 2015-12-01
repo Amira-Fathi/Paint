@@ -18,7 +18,7 @@ public class ShapeFactory{
 	public void setpos (Point p){pos=p;}
 	public Shape create (String shapeType) throws InstantiationException,IllegalAccessException,ClassNotFoundException{
 		try {
-			Shape s = (Shape)(Class.forName(shapeType)).newInstance();
+			final Shape s = (Shape)(Class.forName(shapeType)).newInstance();
 			s.setPosition(pos);
 			Map<String,Double> properties= new HashMap<String,Double>();
 			properties = s.getProperties();
