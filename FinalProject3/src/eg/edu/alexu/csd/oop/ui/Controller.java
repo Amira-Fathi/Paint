@@ -118,7 +118,7 @@ public class Controller{
 			}
 		}
 			
-		}
+	}
 	private class Previous implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -175,7 +175,9 @@ public class Controller{
 					selected=null;
 					pos=null;
 				}
-			}catch(Exception ex){}
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
 		}
 	}
 	private class ColorUpdater implements ActionListener {
@@ -201,12 +203,12 @@ public class Controller{
 					selected=null;
 					pos=null;
 				}
-			}catch(Exception ex){}
-			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
 		}
 	}
 	private class FillColorUpdater implements ActionListener {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
@@ -227,22 +229,26 @@ public class Controller{
 					selected=null;
 					pos=null;
 				}
-			}catch(Exception ex){}
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
 			
 		}
-		}
+	}
 	
 	private class Remover implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (selected!=null){
-			try{
-				engine.removeShape(selected);
-				paintGui.getcanvas().update(paintGui.getcanvas().getGraphics());
-				engine.refresh(paintGui.getcanvas().getGraphics());
-				pos=null;
-				selected=null;
-			}catch(Exception ex){}
+				try{
+					engine.removeShape(selected);
+					paintGui.getcanvas().update(paintGui.getcanvas().getGraphics());
+					engine.refresh(paintGui.getcanvas().getGraphics());
+					pos=null;
+					selected=null;
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -258,10 +264,9 @@ public class Controller{
 					 s.draw(paintGui.getcanvas().getGraphics());
 					 pos=null;
 				 }catch(Exception ex){
-					 
+					 ex.printStackTrace();
 				 }
 			 }
-			
 		}
 	}
 	private class Selector implements MouseListener {
@@ -277,7 +282,9 @@ public class Controller{
 					moveFlag=false;
 					pos=null;
 					selected=null;
-				}catch(Exception ex){}
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
 			}
 			else {
 				pos=e.getPoint();
