@@ -21,8 +21,7 @@ public class JsonParser implements Parser{
 	public ArrayList<Shape> read(){
 		ArrayList<Shape> shapes = new  ArrayList<Shape> ();
 		try{
-    		FileInputStream fis = new FileInputStream(data);
-    		@SuppressWarnings("resource")
+			FileInputStream fis = new FileInputStream(data);
 			BufferedReader bu = new BufferedReader(new InputStreamReader(fis));
     		String sCurrentLine,json ="";
     		while ((sCurrentLine = bu.readLine()) != null) {
@@ -62,11 +61,14 @@ public class JsonParser implements Parser{
     		    	s.setProperties(map);
     		    	shapes.add(s);
     		    	j++;
-    		    }	
+    		    }
+    		 bu.close();
+    		 fis.close();
 		}
 		catch(InstantiationException|IllegalAccessException|ClassNotFoundException|IOException ex){
 			throw new RuntimeException ("can not read from the file");
 		}
+		
 		return shapes;
 	}
 	public void write(ArrayList<Shape> shapes)  {
@@ -118,6 +120,7 @@ public class JsonParser implements Parser{
 	        }
 	        bw.write("}");
 	        bw.close();
+	        fw.close();
 		}catch(IOException ex){throw new RuntimeException ("can not write to file");}
 	}
 }

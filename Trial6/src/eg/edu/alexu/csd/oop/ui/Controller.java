@@ -29,12 +29,12 @@ public class Controller{
 	private PaintGui paintGui;
 	private Point pos=null;
 	private Shape selected=null;
-	private java.util.List<Class<? extends eg.edu.alexu.csd.oop.draw.Shape>> list; 
+	private java.util.List<Class<? extends Shape>> list; 
 
 	public Controller (ModelEngine e,PaintGui u){
 		paintGui=u;
 		engine=e;
-		list = new LinkedList<Class<? extends eg.edu.alexu.csd.oop.draw.Shape>>();
+		list = new LinkedList<Class<? extends Shape>>();
 		getShapes();
 		
 		paintGui.click(new Selector());
@@ -61,7 +61,6 @@ public class Controller{
 			paintGui.addItem(s.getSimpleName());
 		}
 	}
-	// check null pointer exception
 	private class Saver implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -189,8 +188,9 @@ public class Controller{
 					JButton b=new JButton ("Color");
 					b.addActionListener(new ActionListener(){
 						public void actionPerformed (ActionEvent e){
-							Color c = Color.black;
+							Color c = null;
 							c = JColorChooser.showDialog(null,"Choose the shape Color",c);
+							if (c==null)c=Color.black;
 							New.setColor(c);
 						}
 					});
@@ -274,7 +274,6 @@ public class Controller{
 					engine.updateShape(selected,New);
 					paintGui.getcanvas().update(paintGui.getcanvas().getGraphics());
 					engine.refresh(paintGui.getcanvas().getGraphics());
-					System.out.println(New.getColor());
 					moveFlag=false;
 					pos=null;
 					selected=null;

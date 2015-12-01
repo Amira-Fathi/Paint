@@ -30,12 +30,12 @@ public class ShapeFactory{
 				dialog[cnt++]=new JTextField();
 			}
 			dialog[cnt]=new JButton ("Color");
+			s.setColor(Color.black);
 			((JButton)dialog[cnt]).addActionListener(new ActionListener(){
 				public void actionPerformed (ActionEvent e){
-					///
-					Color c = null;
+					Color c=null;
 					c = JColorChooser.showDialog(null,"Choose the shape Color",c);
-					s.setColor(c);
+					if (c!=null)s.setColor(c);
 				}
 			});
 			dialog[cnt+1]=new JButton ("FillColor");
@@ -57,7 +57,7 @@ public class ShapeFactory{
 			return s;
 			
 		}catch(InstantiationException|IllegalAccessException|ClassNotFoundException ex){
-			throw new RuntimeException(shapeType);
+			throw new RuntimeException("can not create new shape");
 		}
 	}
 }

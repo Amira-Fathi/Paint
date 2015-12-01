@@ -49,7 +49,7 @@ public class Circle extends ShapeEngine implements Cloneable{
 				entry.setValue(values[temp++]);
 			}
 		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		return New;
 	}

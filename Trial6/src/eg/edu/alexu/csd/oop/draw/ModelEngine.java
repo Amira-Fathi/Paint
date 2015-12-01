@@ -42,7 +42,6 @@ public class ModelEngine implements DrawingEngine{
 		h.add(shapes);
 	}
 	@Override
-	// test test please
 	public void removeShape(Shape shape){
 		if (!shapes.contains(shape)) throw new RuntimeException("array doesn't contain the shape in remove_shape");
 		if (shape==null) throw new NullPointerException("the shape to be removed is null in remove_Shape");
@@ -66,11 +65,9 @@ public class ModelEngine implements DrawingEngine{
 		d = shapes.toArray(d);
 		return d;
 	}
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Class<? extends Shape>> getSupportedShapes(){
-		java.util.List<Class<? extends eg.edu.alexu.csd.oop.draw.Shape>> list = new LinkedList<Class<? extends eg.edu.alexu.csd.oop.draw.Shape>>();
-		//my classes
+		java.util.List<Class<? extends Shape>> list = new LinkedList<Class<? extends Shape>>();
 		list.add(Circle.class);
 		list.add(Ellipse.class);
 		list.add(Line.class);
@@ -100,7 +97,7 @@ public class ModelEngine implements DrawingEngine{
 					Class<?>[] interfaces = myclass.getInterfaces();
 					for (int k = 0; k < interfaces.length; k++) {
 						if (interfaces[k].getName().equals("eg.edu.alexu.csd.oop.draw.Shape")){
-							list.add((Class<? extends Shape>) myclass);
+							list.add((Class<? extends Shape>)myclass);
 					        break;   	
 					    }
 					}
@@ -145,12 +142,10 @@ public class ModelEngine implements DrawingEngine{
 			parser = (Parser)(Class.forName("eg.edu.alexu.csd.oop.parsers."+exten+"Parser")).newInstance();
 			parser.getPath(path);
 			parser.write(shapes);
-		} catch (ClassNotFoundException ex) {
-			throw new RuntimeException (path);
-		}catch (InstantiationException ex){}
-		catch (IllegalAccessException ex){}
+		} catch (ClassNotFoundException|InstantiationException|IllegalAccessException ex){
+			ex.printStackTrace();
+		}
 	}
-	//parsers.JsonParser
 	@Override
 	public void load(String path){
 		try {
@@ -160,11 +155,9 @@ public class ModelEngine implements DrawingEngine{
 			parser = (Parser)(Class.forName("eg.edu.alexu.csd.oop.parsers."+exten+"Parser")).newInstance();
 			parser.getPath(path);
 			shapes = parser.read();
-			//h.add(shapes);
 			h.clear();
-		} catch (ClassNotFoundException ex) {
-			throw new RuntimeException (path);
-		}catch (InstantiationException ex){}
-		catch (IllegalAccessException ex){}
+		} catch (ClassNotFoundException|InstantiationException|IllegalAccessException ex){
+			ex.printStackTrace();
+		}
 	}
 }
