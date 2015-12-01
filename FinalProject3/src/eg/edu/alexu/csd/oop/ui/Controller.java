@@ -176,7 +176,6 @@ public class Controller{
 					pos=null;
 				}
 			}catch(Exception ex){
-				ex.printStackTrace();
 			}
 		}
 	}
@@ -204,7 +203,6 @@ public class Controller{
 					pos=null;
 				}
 			}catch(Exception ex){
-				ex.printStackTrace();
 			}
 		}
 	}
@@ -230,9 +228,7 @@ public class Controller{
 					pos=null;
 				}
 			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-			
+			}	
 		}
 	}
 	
@@ -247,7 +243,6 @@ public class Controller{
 					pos=null;
 					selected=null;
 				}catch(Exception ex){
-					ex.printStackTrace();
 				}
 			}
 		}
@@ -264,7 +259,6 @@ public class Controller{
 					 s.draw(paintGui.getcanvas().getGraphics());
 					 pos=null;
 				 }catch(Exception ex){
-					 ex.printStackTrace();
 				 }
 			 }
 		}
@@ -283,7 +277,6 @@ public class Controller{
 					pos=null;
 					selected=null;
 				}catch(Exception ex){
-					ex.printStackTrace();
 				}
 			}
 			else {
