@@ -31,7 +31,7 @@ public class ModelEngine implements DrawingEngine{
 	public void refresh(Graphics canvas){
 		Iterator<Shape> it = shapes.iterator();
 		while (it.hasNext()){
-			Shape next = (Shape)it.next();
+			Shape next = it.next();
 			next.draw(canvas);
 		}
 	}
@@ -86,7 +86,7 @@ public class ModelEngine implements DrawingEngine{
 			while ((jarEntry=jarFile.getNextJarEntry())!= null){
 				if ((jarEntry.getName().endsWith(".class"))){
 					String className = jarEntry.getName().replace('/','.').replaceAll(".class", "");
-					Class myclass=null;
+					Class<?> myclass=null;
 					try{
 						myclass = Class.forName(className);
 					}catch(Throwable e){
@@ -96,15 +96,16 @@ public class ModelEngine implements DrawingEngine{
 					int modifer = myclass.getModifiers();
 					if (Modifier.isAbstract(modifer) ||
 					Modifier.isInterface(modifer)) continue;
-					Class[] interfaces = myclass.getInterfaces();
+					Class<?>[] interfaces = myclass.getInterfaces();
 					for (int k = 0; k < interfaces.length; k++) {
 						if (interfaces[k].getName().equals("eg.edu.alexu.csd.oop.draw.Shape")){
-							list.add(myclass);
+							list.add((Class<? extends Shape>) myclass);
 					        break;   	
 					    }
 					}
 				}
 			}
+			jarFile.close();
 		}
 		}catch(Exception t){
 			throw new RuntimeException ("Can not find plugins");

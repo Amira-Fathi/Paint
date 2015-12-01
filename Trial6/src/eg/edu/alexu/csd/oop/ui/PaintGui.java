@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 public class PaintGui extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private JButton save,load,undo,redo,newShape;
+	private JButton save,load,undo,redo;
 	private JButton resize,move,delete,color,fillColor;
 	private Canvas canvas;
 	private JComboBox<String>comboBox;
@@ -90,8 +90,11 @@ public class PaintGui extends JFrame{
 		lblShapes.setBounds(10, 29, 46, 14);
 		this.getContentPane().add(lblShapes);
 	}
-	void addItem (String s){
+	public void addItem (String s){
 		comboBox.addItem(s);
+	}
+	public int getSelected (){
+		return comboBox.getSelectedIndex();
 	}
 	Canvas getcanvas(){return canvas;}
 	public void click (MouseListener m){canvas.addMouseListener(m);}

@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -251,11 +250,10 @@ public class Controller{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ShapeFactory sf = new ShapeFactory();
-			JComboBox<String> c = (JComboBox<String>)e.getSource();
 			 if (pos!=null){
 				 try {
 					 sf.setpos(pos);
-					 Shape s = (Shape)sf.create(list.get(c.getSelectedIndex()).getName()); 
+					 Shape s = (Shape)sf.create(list.get(paintGui.getSelected()).getName()); 
 					 engine.addShape(s);
 					 s.draw(paintGui.getcanvas().getGraphics());
 					 pos=null;
