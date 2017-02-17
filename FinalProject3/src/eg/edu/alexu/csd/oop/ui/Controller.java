@@ -24,6 +24,7 @@ import eg.edu.alexu.csd.oop.draw.Shape;
 
 
 public class Controller{
+	
 	private boolean moveFlag=false;
 	private ModelEngine engine;
 	private PaintGui paintGui;
@@ -253,7 +254,7 @@ public class Controller{
 			ShapeFactory sf = new ShapeFactory();
 			 if (pos!=null){
 				 try {
-					 sf.setpos(pos);
+					 sf.setPosition(pos);
 					 Shape s = (Shape)sf.create(list.get(paintGui.getSelected()).getName()); 
 					 engine.addShape(s);
 					 s.draw(paintGui.getcanvas().getGraphics());
@@ -306,5 +307,4 @@ public class Controller{
 			moveFlag=true;
 		}
 	}
-	
 }

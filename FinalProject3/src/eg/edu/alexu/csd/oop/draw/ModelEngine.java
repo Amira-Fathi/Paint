@@ -117,6 +117,7 @@ public class ModelEngine implements DrawingEngine{
 			h.undo();
 		}catch (RuntimeException e){
 			throw new RuntimeException();
+			
 		}
 		if (h.size()==0){
 			shapes.clear();
